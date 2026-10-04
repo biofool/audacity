@@ -251,6 +251,7 @@ ListItemBlank {
             iconColor: root.innerGripReorderActive ? ui.theme.extra["white_color"] : ui.theme.fontPrimaryColor
             //: Tooltip of the drag handle used to reorder effects
             toolTipTitle: qsTrc("projectscene", "Reorder effect")
+            toolTipDescription: qsTrc("projectscene", "Drag to reorder the effect in the list")
 
             mouseArea.cursorShape: Qt.SizeAllCursor
             navigation.panel: root.innerNavigationPanel
@@ -301,6 +302,8 @@ ListItemBlank {
             navigation.name: "panel bypass btn - " + prv.title
             //: Tooltip of the effect power button; %1 is an effect name
             toolTipTitle: qsTrc("projectscene", "Bypass %1").arg(prv.title)
+            //: Tooltip description of the effect power button; %1 is an effect name
+            toolTipDescription: qsTrc("projectscene", "Turn %1 on or off").arg(prv.title)
 
             isMasterEffect: item && item.isMasterEffect
             accentButton: item && item.isActive
@@ -321,6 +324,8 @@ ListItemBlank {
             navigation.name: "show ui btn - " + prv.title
             //: Tooltip of the button that opens the effect dialog; %1 is an effect name
             toolTipTitle: qsTrc("projectscene", "Open %1").arg(prv.title)
+            //: Tooltip description of the button that opens the effect dialog; %1 is an effect name
+            toolTipDescription: qsTrc("projectscene", "Open the %1 settings dialog").arg(prv.title)
 
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -363,6 +368,8 @@ ListItemBlank {
             navigation.name: "replace btn - " + prv.title
             //: Tooltip of the button that replaces the effect; %1 is an effect name
             toolTipTitle: qsTrc("projectscene", "Replace %1").arg(prv.title)
+            //: Tooltip description of the button that replaces the effect; %1 is an effect name
+            toolTipDescription: qsTrc("projectscene", "Replace %1 with a different effect").arg(prv.title)
 
             Layout.fillHeight: true
             Layout.preferredWidth: height

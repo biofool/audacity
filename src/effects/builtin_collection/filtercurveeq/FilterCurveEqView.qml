@@ -111,6 +111,8 @@ BuiltinEffectBase {
                     navigation.order: showGridlinesCheckBox.navigation.order + 1
 
                     text: qsTrc("effects/filtercurveeq", "Reset")
+                    toolTipTitle: qsTrc("effects/filtercurveeq", "Reset")
+                    toolTipDescription: qsTrc("effects/filtercurveeq", "Reset the curve to flat")
 
                     onClicked: filterCurveEq.curveModel.flatten()
                 }
@@ -125,6 +127,8 @@ BuiltinEffectBase {
                     navigation.order: resetButton.navigation.order + 1
 
                     text: qsTrc("effects/filtercurveeq", "Invert")
+                    toolTipTitle: qsTrc("effects/filtercurveeq", "Invert")
+                    toolTipDescription: qsTrc("effects/filtercurveeq", "Invert the curve")
 
                     onClicked: filterCurveEq.curveModel.invert()
                 }
@@ -141,6 +145,7 @@ BuiltinEffectBase {
                     icon: IconCode.ZOOM_IN
                     //: Tooltip of a zoom button in the EQ curve view
                     toolTipTitle: qsTrc("effects/filtercurveeq", "Zoom in")
+                    toolTipDescription: qsTrc("effects/filtercurveeq", "Zoom in on the graph")
                     enabled: filterCurveEq.canZoomIn
 
                     onClicked: filterCurveEq.zoomIn()
@@ -158,6 +163,7 @@ BuiltinEffectBase {
                     icon: IconCode.ZOOM_OUT
                     //: Tooltip of a zoom button in the EQ curve view
                     toolTipTitle: qsTrc("effects/filtercurveeq", "Zoom out")
+                    toolTipDescription: qsTrc("effects/filtercurveeq", "Zoom out of the graph")
                     enabled: filterCurveEq.canZoomOut
 
                     onClicked: filterCurveEq.zoomOut()

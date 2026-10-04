@@ -59,6 +59,7 @@ Item {
 
             icon: IconCode.AUDIO
             toolTipTitle: qsTrc("playback", "Playback meter settings")
+            toolTipDescription: qsTrc("playback", "Choose meter position, style, type and dB range")
             accentButton: popup.isOpened
 
             onClicked: {
@@ -216,6 +217,9 @@ Item {
 
             transparent: true
             icon: IconCode.DOUBLE_BAR_LINE
+            //: Tooltip of the playback meter resize handle
+            toolTipTitle: qsTrc("playback", "Resize playback meter")
+            toolTipDescription: qsTrc("playback", "Drag to change the width of the playback meter")
         }
     }
 }

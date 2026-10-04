@@ -89,6 +89,7 @@ Item {
 
                     //: Tooltip of the button that closes the panel
                     toolTipTitle: qsTrc("projectscene", "Close real-time effects panel")
+                    toolTipDescription: qsTrc("projectscene", "Hide the real-time effects panel")
 
                     normalColor: ui.theme.backgroundPrimaryColor
                     hoverHitColor: ui.theme.buttonColor
@@ -147,6 +148,8 @@ Item {
                 normalColor: ui.theme.buttonColor
 
                 text: qsTrc("projectscene", "Add track")
+                toolTipTitle: qsTrc("projectscene", "Add track")
+                toolTipDescription: qsTrc("projectscene", "Add a mono, stereo or label track")
 
                 enabled: true
 

@@ -61,6 +61,7 @@ Item {
             icon: IconCode.AUDIO
             //: Tooltip of the playback meter settings button
             toolTipTitle: qsTrc("playback", "Playback meter settings")
+            toolTipDescription: qsTrc("playback", "Choose meter position, style, type and dB range")
             accentButton: popup.isOpened
 
             navigation.name: "PlaybackMeterSettings"

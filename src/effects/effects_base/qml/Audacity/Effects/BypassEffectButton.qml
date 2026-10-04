@@ -17,4 +17,6 @@ FlatButton {
     accentColor: isMasterEffect ? ui.theme.extra["black_color"] : ui.theme.accentColor
     //: Tooltip of the effect power button
     toolTipTitle: qsTrc("effects", "Bypass effect")
+    //: Tooltip description of the effect power button
+    toolTipDescription: qsTrc("effects", "Turn the effect on or off without removing it")
 }

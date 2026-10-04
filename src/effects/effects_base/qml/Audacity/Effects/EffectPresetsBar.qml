@@ -161,6 +161,7 @@ RowLayout {
         navigation.name: "save preset btn"
         //: Tooltip of a button in the effect presets bar
         toolTipTitle: qsTrc("effects", "Save preset")
+        toolTipDescription: qsTrc("effects", "Save the current settings as a preset")
 
         Layout.alignment: Qt.AlignVCenter
         icon: IconCode.SAVE
@@ -178,6 +179,7 @@ RowLayout {
         navigation.name: "reset preset btn"
         //: Tooltip of a button in the effect presets bar
         toolTipTitle: qsTrc("effects", "Reset preset")
+        toolTipDescription: qsTrc("effects", "Restore the selected preset's default settings")
 
         Layout.alignment: Qt.AlignVCenter
 
@@ -197,6 +199,7 @@ RowLayout {
         navigation.name: "delete preset btn"
         //: Tooltip of a button in the effect presets bar
         toolTipTitle: qsTrc("effects", "Delete preset")
+        toolTipDescription: qsTrc("effects", "Delete the selected preset")
 
         Layout.alignment: Qt.AlignVCenter
 
@@ -216,6 +219,7 @@ RowLayout {
         navigation.name: "manage preset btn"
         //: Tooltip of a button in the effect presets bar
         toolTipTitle: qsTrc("effects", "Preset options")
+        toolTipDescription: qsTrc("effects", "Import, export and manage presets")
 
         Layout.alignment: Qt.AlignVCenter
 

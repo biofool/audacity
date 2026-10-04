@@ -43,18 +43,22 @@ StyledPopupView {
                     type: TrackType.MONO,
                     icon: IconCode.CIRCLE,
                     text: qsTrc("projectscene", "Mono"),
+                    description: qsTrc("projectscene", "Add a mono track"),
+                    shortcut: "Ctrl+Shift+N",
                     enabled: true
                 },
                 {
                     type: TrackType.STEREO,
                     icon: IconCode.TWO_CIRCLES,
                     text: qsTrc("projectscene", "Stereo"),
+                    description: qsTrc("projectscene", "Add a stereo track"),
                     enabled: true
                 },
                 {
                     type: TrackType.LABEL,
                     icon: IconCode.LOOP_IN,
                     text: qsTrc("projectscene", "Label"),
+                    description: qsTrc("projectscene", "Add a label track"),
                     enabled: true
                 }
             ]
@@ -73,6 +77,9 @@ StyledPopupView {
                 enabled: modelData.enabled
                 icon: modelData.icon
                 text: modelData.text
+                toolTipTitle: modelData.text
+                toolTipDescription: modelData.description
+                toolTipShortcut: modelData.shortcut ?? ""
                 onClicked: {
                     createTrack(modelData.type)
                     root.close()

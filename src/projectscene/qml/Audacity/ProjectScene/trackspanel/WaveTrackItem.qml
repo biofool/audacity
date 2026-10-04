@@ -102,7 +102,9 @@ TrackItem {
                 Layout.preferredHeight: 24
 
                 text: qsTrc("projectscene", "Effects")
-                toolTipDescription: qsTrc("projectscene", "Opens effects panel")
+                toolTipTitle: qsTrc("projectscene", "Effects")
+                toolTipDescription: qsTrc("projectscene", "Show the real-time effects panel for this track")
+                toolTipShortcut: "E"
 
                 opacity: topRow.visible && root.height > root.mapFromItem(this, 0, height + bottomSeparatorHeight).y ? 1 : 0
                 visible: opacity !== 0
@@ -245,6 +247,12 @@ TrackItem {
                 icon: IconCode.MUTE
                 checked: Boolean(root.item) ? root.item.muted : false
 
+                //: Tooltip of the mute button
+                toolTipTitle: qsTrc("projectscene", "Mute")
+                //: Tooltip description of the mute button
+                toolTipDescription: qsTrc("projectscene", "Silence this track during playback")
+                toolTipShortcut: "Shift+U"
+
                 navigation.panel: root.headerNavigationPanel
                 navigation.order: root.headerTrailingControlsNavigationStart
                 //: Accessibility name of the mute button
@@ -266,6 +274,12 @@ TrackItem {
 
                 icon: IconCode.SOLO
                 checked: Boolean(root.item) ? root.item.solo : false
+
+                //: Tooltip of the solo button
+                toolTipTitle: qsTrc("projectscene", "Solo")
+                //: Tooltip description of the solo button
+                toolTipDescription: qsTrc("projectscene", "Play this track alone, muting all others")
+                toolTipShortcut: "Shift+S"
 
                 navigation.panel: root.headerNavigationPanel
                 navigation.order: muteButton.navigation.order + 1

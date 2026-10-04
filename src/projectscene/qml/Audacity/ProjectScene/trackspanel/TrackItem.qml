@@ -207,6 +207,10 @@ ListItemBlank {
 
                     menuModel: contextMenuModel
 
+                    //: Tooltip of the track menu button
+                    toolTipTitle: qsTrc("projectscene", "Track menu")
+                    toolTipDescription: qsTrc("projectscene", "Open the track options menu")
+
                     navigation.panel: root.headerNavigationPanel
                     navigation.order: root.collapsed ? root.headerTrailingControlsNavigationEnd + 1 : title.navigation.order + 1
                     navigation.accessible.name: qsTrc("projectscene", "Track menu")

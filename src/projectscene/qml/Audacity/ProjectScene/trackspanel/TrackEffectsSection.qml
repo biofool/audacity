@@ -64,6 +64,7 @@ Rectangle {
                 navigation.name: "Toggle all track effects"
                 navigation.accessible.name: root.isMasterTrack ? qsTrc("projectscene", "Toggle all master effects") : qsTrc("projectscene", "Toggle all effects")
                 toolTipTitle: root.isMasterTrack ? qsTrc("projectscene", "Toggle all master effects") : qsTrc("projectscene", "Toggle all effects")
+                toolTipDescription: root.isMasterTrack ? qsTrc("projectscene", "Enable or disable all master effects") : qsTrc("projectscene", "Enable or disable all effects on this track")
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 Layout.margins: 8
@@ -134,6 +135,8 @@ Rectangle {
             navigation.accessible.name: root.isMasterTrack ? qsTrc("projectscene", "Add master effect") : qsTrc("projectscene", "Add effect")
 
             text: qsTrc("projectscene", "Add effect")
+            toolTipTitle: root.isMasterTrack ? qsTrc("projectscene", "Add master effect") : qsTrc("projectscene", "Add effect")
+            toolTipDescription: root.isMasterTrack ? qsTrc("projectscene", "Add a real-time effect to the master track") : qsTrc("projectscene", "Add a real-time effect to this track")
 
             AddEffectMenuModel {
                 id: menuModel
