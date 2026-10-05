@@ -252,6 +252,7 @@ ListItemBlank {
             //: Tooltip of the drag handle used to reorder effects
             toolTipTitle: qsTrc("projectscene", "Reorder effect")
             toolTipDescription: qsTrc("projectscene", "Drag to reorder this effect — real-time effects are non-destructive and reorderable")
+            toolTipShortcut: "Alt+Up, Alt+Down"
 
             mouseArea.cursorShape: Qt.SizeAllCursor
             navigation.panel: root.innerNavigationPanel

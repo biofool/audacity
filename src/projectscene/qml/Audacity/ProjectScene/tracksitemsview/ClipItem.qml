@@ -788,6 +788,12 @@ Rectangle {
 
                     visible: root.isPitchModified && header.width > (60 + pitchBtn.implicitWidth + speedBtn.implicitWidth * (root.isSpeedModified ? 1 : 0) + menuBtn.implicitWidth)
 
+                    //: Tooltip of the clip pitch indicator button
+                    toolTipTitle: qsTrc("projectscene", "Clip pitch")
+                    //: Tooltip description of the clip pitch indicator button
+                    toolTipDescription: qsTrc("projectscene", "Open pitch and speed — Ctrl+click to reset pitch")
+                    toolTipShortcut: "Ctrl+Shift+P"
+
                     onClicked: function (mouse) {
                         if (mouse.modifiers & Qt.ControlModifier) {
                             root.pitchResetRequested()
@@ -806,6 +812,12 @@ Rectangle {
                     text: root.speedPercentage + "%"
 
                     visible: root.isSpeedModified && header.width > (60 + speedBtn.implicitWidth + menuBtn.implicitWidth)
+
+                    //: Tooltip of the clip speed indicator button
+                    toolTipTitle: qsTrc("projectscene", "Clip speed")
+                    //: Tooltip description of the clip speed indicator button
+                    toolTipDescription: qsTrc("projectscene", "Open pitch and speed — Ctrl+click to reset speed")
+                    toolTipShortcut: "Ctrl+Shift+P"
 
                     onClicked: function (mouse) {
                         if (mouse.modifiers & Qt.ControlModifier) {

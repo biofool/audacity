@@ -263,6 +263,7 @@ Item {
 
                 toolTipTitle: Boolean(itemData) ? itemData.title : ""
                 toolTipDescription: Boolean(itemData) ? itemData.description : ""
+                toolTipShortcut: Boolean(itemData) ? itemData.shortcuts : ""
 
                 volumeLevel: Boolean(itemData) ? itemData.level : 0
                 leftCurrentVolumePressure: Boolean(itemData) ? itemData.leftChannelPressure : 0
