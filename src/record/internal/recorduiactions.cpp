@@ -29,7 +29,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Record"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Record"),
+             TranslatableString("action_description", "Start recording at the playhead — adds a new clip on the selected track; existing audio is kept"),
              IconCode::Code::RECORD_FILL
              ),
     UiAction(RECORD_PAUSE_QUERY.toString(),
@@ -83,7 +83,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Lead-in Recording"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Start lead-in recording"),
+             TranslatableString("action_description", "Play a few seconds before the playhead for context, then record — existing audio is kept and crossfaded into"),
              IconCode::Code::RECORD_FILL
              ),
     UiAction("record-on-current-track",
@@ -92,7 +92,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Record on current track"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Record on current track")
+             TranslatableString("action_description", "Record at the playhead on the selected track — adds a new clip; existing audio is kept")
              ),
     UiAction("record-on-new-track",
              au::context::UiCtxProjectOpened,
@@ -100,7 +100,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Record on new track"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Record on new track")
+             TranslatableString("action_description", "Record on a new track — existing tracks and clips are left untouched")
              ),
 };
 
