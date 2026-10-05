@@ -18,5 +18,5 @@ FlatButton {
     //: Tooltip of the effect power button
     toolTipTitle: qsTrc("effects", "Bypass effect")
     //: Tooltip description of the effect power button
-    toolTipDescription: qsTrc("effects", "Turn the effect on or off without removing it")
+    toolTipDescription: qsTrc("effects", "Turn the effect on or off — non-destructive, the audio is unchanged")
 }

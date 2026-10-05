@@ -364,6 +364,9 @@ EffectStyledDialogView {
 
                             //: Label of the dialog button that applies the effect
                             text: qsTrc("global", "Apply")
+                            toolTipTitle: qsTrc("global", "Apply")
+                            //: Tooltip of the button that applies a destructive effect
+                            toolTipDescription: qsTrc("effects", "Apply the effect directly to the audio")
                             buttonRole: ButtonBoxModel.AcceptRole
                             buttonId: ButtonBoxModel.Apply
                             accentButton: true

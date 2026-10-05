@@ -32,7 +32,7 @@ static UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Remove realtime effect"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Remove realtime effect")
+             TranslatableString("action_description", "Remove this real-time effect — non-destructive, the audio is unchanged")
              ),
     UiAction("action://effects/presets/apply",
              au::context::UiCtxAny,
@@ -113,7 +113,27 @@ UiAction makeUiAction(const std::string& uri, const EffectMeta& meta)
     action.code = makeEffectAction(uri, meta.id);
     action.uiCtx = au::context::UiCtxProjectOpened;
     action.scCtx = au::context::CTX_PROJECT_FOCUSED;
-    action.description = TranslatableString::untranslatable(meta.description);
+
+    TranslatableString description;
+    const bool isDestructive = uri == EFFECT_OPEN_ACTION;
+    if (isDestructive) {
+        description = meta.description.empty()
+                      //: Tooltip of an effect that modifies the audio data
+                      ? TranslatableString("action_description", "Applied directly to the audio")
+                      //: Tooltip of an effect that modifies the audio data; %1 is the effect's own description
+                      : TranslatableString("action_description", "%1 — applied directly to the audio");
+    } else {
+        description = meta.description.empty()
+                      //: Tooltip of a real-time effect
+                      ? TranslatableString("action_description", "Real-time — non-destructive and reorderable")
+                      //: Tooltip of a real-time effect; %1 is the effect's own description
+                      : TranslatableString("action_description", "%1 — real-time: non-destructive and reorderable");
+    }
+    if (!meta.description.empty()) {
+        description = description.arg(TranslatableString::untranslatable(meta.description));
+    }
+    action.description = description;
+
     action.title = TranslatableString::untranslatable(utils::effectDisplayTitle(meta));
     return action;
 }

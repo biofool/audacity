@@ -136,7 +136,7 @@ Rectangle {
 
             text: qsTrc("projectscene", "Add effect")
             toolTipTitle: root.isMasterTrack ? qsTrc("projectscene", "Add master effect") : qsTrc("projectscene", "Add effect")
-            toolTipDescription: root.isMasterTrack ? qsTrc("projectscene", "Add a real-time effect to the master track") : qsTrc("projectscene", "Add a real-time effect to this track")
+            toolTipDescription: root.isMasterTrack ? qsTrc("projectscene", "Add a real-time effect to the master track — non-destructive and reorderable") : qsTrc("projectscene", "Add a real-time effect to this track — non-destructive and reorderable")
 
             AddEffectMenuModel {
                 id: menuModel

@@ -329,7 +329,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Show effects panel"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Show effects panel"),
+             TranslatableString("action_description", "Show the real-time effects panel — non-destructive and reorderable"),
              Checkable::Yes
              ),
     UiAction("open-metadata-editor",
@@ -498,7 +498,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Add track effects"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Add track effects")
+             TranslatableString("action_description", "Add real-time effects to this track — non-destructive and reorderable")
              ),
     UiAction("favourite-effect-1",
              au::context::UiCtxAny,

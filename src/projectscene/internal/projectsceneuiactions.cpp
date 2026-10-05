@@ -336,7 +336,7 @@ static UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Move realtime effect up"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Move realtime effect up")
+             TranslatableString("action_description", "Move this real-time effect up in the stack — non-destructive and reorderable")
              ),
     UiAction("realtime-effect-move-down",
              au::context::UiCtxAny,
@@ -344,7 +344,7 @@ static UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Move realtime effect down"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Move realtime effect down")
+             TranslatableString("action_description", "Move this real-time effect down in the stack — non-destructive and reorderable")
              )
 };
 

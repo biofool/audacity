@@ -103,7 +103,7 @@ TrackItem {
 
                 text: qsTrc("projectscene", "Effects")
                 toolTipTitle: qsTrc("projectscene", "Effects")
-                toolTipDescription: qsTrc("projectscene", "Show the real-time effects panel for this track")
+                toolTipDescription: qsTrc("projectscene", "Show this track's real-time effects — non-destructive and reorderable")
                 toolTipShortcut: "E"
 
                 opacity: topRow.visible && root.height > root.mapFromItem(this, 0, height + bottomSeparatorHeight).y ? 1 : 0

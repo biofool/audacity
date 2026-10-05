@@ -251,7 +251,7 @@ ListItemBlank {
             iconColor: root.innerGripReorderActive ? ui.theme.extra["white_color"] : ui.theme.fontPrimaryColor
             //: Tooltip of the drag handle used to reorder effects
             toolTipTitle: qsTrc("projectscene", "Reorder effect")
-            toolTipDescription: qsTrc("projectscene", "Drag to reorder the effect in the list")
+            toolTipDescription: qsTrc("projectscene", "Drag to reorder this effect — real-time effects are non-destructive and reorderable")
 
             mouseArea.cursorShape: Qt.SizeAllCursor
             navigation.panel: root.innerNavigationPanel
@@ -303,7 +303,7 @@ ListItemBlank {
             //: Tooltip of the effect power button; %1 is an effect name
             toolTipTitle: qsTrc("projectscene", "Bypass %1").arg(prv.title)
             //: Tooltip description of the effect power button; %1 is an effect name
-            toolTipDescription: qsTrc("projectscene", "Turn %1 on or off").arg(prv.title)
+            toolTipDescription: qsTrc("projectscene", "Turn %1 on or off — non-destructive, the audio is unchanged").arg(prv.title)
 
             isMasterEffect: item && item.isMasterEffect
             accentButton: item && item.isActive
