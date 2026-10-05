@@ -75,7 +75,7 @@ BuiltinEffectBase {
                         Layout.leftMargin: 16
                         Layout.rightMargin: 16
 
-                        text: qsTrc("effects/noisereduction", "Select a few seconds of isolated noise so Audacity knows what to filter out, then click Get noise profile.")
+                        text: qsTrc("effects/noisereduction", "Select a few seconds of isolated noise so Audacity knows what to filter out, then click Get noise profile. The dialog closes while the profile is captured — select the audio to filter and reopen Noise reduction for Step 2.")
                         wrapMode: Text.Wrap
                         horizontalAlignment: Text.AlignLeft
                     }
@@ -85,6 +85,7 @@ BuiltinEffectBase {
 
                         Layout.fillWidth: true
                         Layout.margins: 16
+                        Layout.bottomMargin: 8
 
                         navigation.panel: root.getNoiseProfileNavigationPanel
                         navigation.order: 0
@@ -97,6 +98,20 @@ BuiltinEffectBase {
                             root.dialogView.reject()
                         }
                         height: 28
+                    }
+
+                    StyledTextLabel {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 16
+                        Layout.rightMargin: 16
+                        Layout.bottomMargin: 16
+
+                        text: noiseReduction.isApplyAllowed
+                              ? qsTrc("effects/noisereduction", "Noise profile captured — move on to Step 2")
+                              : qsTrc("effects/noisereduction", "No noise profile yet")
+                        wrapMode: Text.Wrap
+                        horizontalAlignment: Text.AlignLeft
+                        font.bold: noiseReduction.isApplyAllowed
                     }
                 }
             }
