@@ -486,7 +486,7 @@ UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Group clips"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Group clips")
+             TranslatableString("action_description", "Group the selected clips so edits apply to all of them together")
              ),
     UiAction("ungroup-clips",
              au::context::UiCtxAny,
@@ -494,7 +494,7 @@ UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Ungroup clips"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Ungroup clips")
+             TranslatableString("action_description", "Ungroup the selected clips so they can be edited independently")
              ),
     UiAction("track-view-item-move-left",
              au::context::UiCtxProjectFocused,

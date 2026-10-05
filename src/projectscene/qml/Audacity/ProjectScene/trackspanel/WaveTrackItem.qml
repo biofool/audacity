@@ -248,9 +248,10 @@ TrackItem {
                 checked: Boolean(root.item) ? root.item.muted : false
 
                 //: Tooltip of the mute button
-                toolTipTitle: qsTrc("projectscene", "Mute")
+                toolTipTitle: checked ? qsTrc("projectscene", "Mute: on") : qsTrc("projectscene", "Mute: off")
                 //: Tooltip description of the mute button
-                toolTipDescription: qsTrc("projectscene", "Silence this track during playback")
+                toolTipDescription: checked ? qsTrc("projectscene", "This track is silenced — click to unmute")
+                                            : qsTrc("projectscene", "Silence this track during playback")
                 toolTipShortcut: "Shift+U"
 
                 navigation.panel: root.headerNavigationPanel
@@ -276,9 +277,10 @@ TrackItem {
                 checked: Boolean(root.item) ? root.item.solo : false
 
                 //: Tooltip of the solo button
-                toolTipTitle: qsTrc("projectscene", "Solo")
+                toolTipTitle: checked ? qsTrc("projectscene", "Solo: on") : qsTrc("projectscene", "Solo: off")
                 //: Tooltip description of the solo button
-                toolTipDescription: qsTrc("projectscene", "Play this track alone, muting all others")
+                toolTipDescription: checked ? qsTrc("projectscene", "Only soloed tracks play — click to unsolo")
+                                            : qsTrc("projectscene", "Play this track alone, muting all others")
                 toolTipShortcut: "Shift+S"
 
                 navigation.panel: root.headerNavigationPanel

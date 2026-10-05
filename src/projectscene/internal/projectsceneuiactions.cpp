@@ -128,7 +128,7 @@ static UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Snapping"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Snapping"),
+             TranslatableString("action_description", "Snap clips and selections to the chosen time or beat grid"),
              IconCode::Code::MAGNET
              ),
     UiAction("minutes-seconds-ruler",

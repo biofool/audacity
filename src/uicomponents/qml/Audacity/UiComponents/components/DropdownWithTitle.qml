@@ -14,6 +14,8 @@ RowLayout {
     property string current: ""
     property string toggleAccessibleName: title
     property string dropdownAccessibleName: title
+    property string toggleToolTipTitle: ""
+    property string toggleToolTipDescription: ""
     property var model: null
 
     property bool isOptionEnabled: false
@@ -47,6 +49,18 @@ RowLayout {
 
         onClicked: function () {
             root.isOptionEnableChangeRequested(!optionCheckBox.checked)
+        }
+
+        onHoveredChanged: {
+            if (!Boolean(root.toggleToolTipTitle)) {
+                return
+            }
+
+            if (optionCheckBox.hovered) {
+                ui.tooltip.show(optionCheckBox, root.toggleToolTipTitle, root.toggleToolTipDescription)
+            } else {
+                ui.tooltip.hide(optionCheckBox)
+            }
         }
     }
 
