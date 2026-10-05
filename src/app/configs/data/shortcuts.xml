@@ -1046,8 +1046,11 @@
         <key>show-tools-t-b</key>
     </SC>
     <SC>
-        <key>select-tool</key>
+        <key>context-help</key>
         <seq>F1</seq>
+    </SC>
+    <SC>
+        <key>select-tool</key>
     </SC>
     <SC>
         <key>envelope-tool</key>

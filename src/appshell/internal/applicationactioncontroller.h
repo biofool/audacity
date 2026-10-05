@@ -113,6 +113,8 @@ private:
     void openAboutQtDialog();
 
     void openOnlineHandbookPage();
+    void openContextHelpPage();
+    std::string handbookPageForCurrentUri() const;
     void openAskForHelpPage();
     void openPreferencesDialog();
     void openAudioSettingsDialog();

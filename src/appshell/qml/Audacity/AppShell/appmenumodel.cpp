@@ -499,6 +499,7 @@ MenuItem* AppMenuModel::makeHelpMenu()
 {
     MenuItemList helpItems {
         // makeMenuItem("tutorials"),
+        makeMenuItem("context-help"),
         makeMenuItem("online-handbook"),
         makeMenuItem("shortcuts-preferences"),
         makeSeparator(),

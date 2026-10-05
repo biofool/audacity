@@ -79,6 +79,7 @@ void ApplicationActionController::init()
     dispatcher()->reg(this, "about-audacity", this, &ApplicationActionController::openAboutDialog);
     dispatcher()->reg(this, "about-qt", this, &ApplicationActionController::openAboutQtDialog);
     dispatcher()->reg(this, "online-handbook", this, &ApplicationActionController::openOnlineHandbookPage);
+    dispatcher()->reg(this, "context-help", this, &ApplicationActionController::openContextHelpPage);
     dispatcher()->reg(this, "ask-help", this, &ApplicationActionController::openAskForHelpPage);
     dispatcher()->reg(this, "preference-dialog", this, &ApplicationActionController::openPreferencesDialog);
 
@@ -392,6 +393,38 @@ void ApplicationActionController::openOnlineHandbookPage()
 {
     std::string handbookUrl = configuration()->handbookUrl();
     platformInteractive()->openUrl(handbookUrl);
+}
+
+void ApplicationActionController::openContextHelpPage()
+{
+    std::string handbookUrl = configuration()->handbookUrl();
+    platformInteractive()->openUrl(handbookUrl + handbookPageForCurrentUri());
+}
+
+std::string ApplicationActionController::handbookPageForCurrentUri() const
+{
+    //! NOTE Maps the currently-open top-level page or dialog URI to a page in
+    //! the online handbook (https://manual.audacityteam.org). Entries are
+    //! matched by URI prefix so sub-dialogs share their parent's page.
+    //! Unmapped contexts fall back to the handbook root.
+    static const std::vector<std::pair<std::string, std::string> > URI_TO_HANDBOOK_PAGE {
+        { "audacity://project/export", "man/file_export_dialog.html" },
+        { "audacity://effects", "man/index_of_effects_generators_and_analyzers.html" },
+        { "audacity://projectscene/geteffects", "man/index_of_effects_generators_and_analyzers.html" },
+        { "muse://extensions/viewer", "man/index_of_effects_generators_and_analyzers.html" },
+        { "audacity://projectscene/openlabeleditor", "man/label_tracks.html" },
+        { "audacity://projectscene/addnewlabeltrack", "man/label_tracks.html" },
+        { "audacity://preferences", "man/preferences.html" },
+    };
+
+    const std::string currentUri = interactive()->currentUri().val.toString();
+    for (const auto& entry : URI_TO_HANDBOOK_PAGE) {
+        if (currentUri.find(entry.first) == 0) {
+            return entry.second;
+        }
+    }
+
+    return "";
 }
 
 void ApplicationActionController::openAskForHelpPage()
