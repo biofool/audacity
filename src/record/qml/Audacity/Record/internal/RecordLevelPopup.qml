@@ -220,6 +220,15 @@ StyledPopupView {
                 onClicked: {
                     isInputMonitoringOnChangeRequested(!checked)
                 }
+
+                onHoveredChanged: {
+                    if (hovered) {
+                        ui.tooltip.show(enableMonitoringCheckbox, qsTrc("record", "Input monitoring"),
+                                        qsTrc("record", "Hear your input through the playback device while recording — use headphones to avoid feedback, and expect some latency"))
+                    } else {
+                        ui.tooltip.hide(enableMonitoringCheckbox)
+                    }
+                }
             }
 
             CheckBox {
@@ -236,6 +245,15 @@ StyledPopupView {
 
                 onClicked: {
                     isMicMeteringOnChangeRequested(!checked)
+                }
+
+                onHoveredChanged: {
+                    if (hovered) {
+                        ui.tooltip.show(showMeterMeteringCheckbox, qsTrc("record", "Mic metering"),
+                                        qsTrc("record", "Show the input level on the meter without recording — use it to check your level before you record"))
+                    } else {
+                        ui.tooltip.hide(showMeterMeteringCheckbox)
+                    }
                 }
             }
         }

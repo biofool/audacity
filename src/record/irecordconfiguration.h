@@ -43,5 +43,8 @@ public:
     virtual muse::async::Notification crossfadeDurationChanged() const = 0;
 
     virtual RecordingTrackNameOptions recordingTrackNameOptions() const = 0;
+
+    virtual bool hasShownFirstRecordHintToast() const = 0;
+    virtual void setHasShownFirstRecordHintToast(bool shown) = 0;
 };
 }

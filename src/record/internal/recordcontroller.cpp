@@ -140,6 +140,7 @@ Ret RecordController::start()
     }
 
     setCurrentRecordStatus(RecordStatus::Running);
+    maybeShowFirstRecordHint();
     return make_ok();
 }
 
@@ -173,6 +174,7 @@ Ret RecordController::startWithNewTrack()
     }
 
     setCurrentRecordStatus(RecordStatus::Running);
+    maybeShowFirstRecordHint();
     return make_ok();
 }
 
@@ -249,7 +251,22 @@ Ret RecordController::leadInRecording()
     }
 
     setCurrentRecordStatus(RecordStatus::LeadIn);
+    maybeShowFirstRecordHint();
     return make_ok();
+}
+
+void RecordController::maybeShowFirstRecordHint()
+{
+    if (configuration()->hasShownFirstRecordHintToast()) {
+        return;
+    }
+
+    configuration()->setHasShownFirstRecordHintToast(true);
+    toastService()->showInfo(muse::trc("record", "Check your recording level"),
+                             muse::trc("record", "Watch the recording meter while you record — if the signal "
+                                                 "clips or barely registers, open the record-level meter in the "
+                                                 "playback toolbar and adjust the input volume, or check the "
+                                                 "host, device and sample rate in Preferences → Audio settings."));
 }
 
 void RecordController::stopPlaybackIfPaused()

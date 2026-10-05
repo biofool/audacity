@@ -47,6 +47,8 @@ BaseSection {
 
             ComboBoxWithTitle {
                 title: qsTrc("preferences", "Host")
+                toolTipTitle: qsTrc("preferences", "Host")
+                toolTipDescription: qsTrc("preferences", "The audio system Audacity uses to reach your sound card — if a device is missing or recording fails, try a different host")
                 columnWidth: root.columnWidth
 
                 currentIndex: apiModel.currentAudioApiIndex
@@ -64,6 +66,8 @@ BaseSection {
 
             ComboBoxWithTitle {
                 title: qsTrc("preferences", "Recording device")
+                toolTipTitle: qsTrc("preferences", "Recording device")
+                toolTipDescription: qsTrc("preferences", "The microphone or input Audacity records from — a disconnected device or an unsupported sample rate is a common cause of “error opening recording device”")
                 columnWidth: root.columnWidth
 
                 currentIndex: apiModel.currentInputDeviceIndex
@@ -86,6 +90,8 @@ BaseSection {
 
             ComboBoxWithTitle {
                 title: qsTrc("preferences", "Playback device")
+                toolTipTitle: qsTrc("preferences", "Playback device")
+                toolTipDescription: qsTrc("preferences", "The output you hear through — also used for input monitoring while recording")
                 columnWidth: root.columnWidth
 
                 currentIndex: apiModel.currentOutputDeviceIndex
@@ -103,6 +109,8 @@ BaseSection {
 
             ComboBoxWithTitle {
                 title: qsTrc("preferences", "Recording channels")
+                toolTipTitle: qsTrc("preferences", "Recording channels")
+                toolTipDescription: qsTrc("preferences", "How many channels to record — mono or stereo; the device must support the channel count or recording fails")
                 columnWidth: root.columnWidth
 
                 currentIndex: indexOfValue(apiModel.currentInputChannelsSelected)

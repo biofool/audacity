@@ -56,7 +56,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Record level"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Set record level"),
+             TranslatableString("action_description", "Recording input level and meter — click to adjust input volume, input monitoring and mic metering"),
              IconCode::Code::MICROPHONE
              ),
     UiAction(RECORD_TOGGLE_MIC_METERING.toString(),
@@ -65,7 +65,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Show mic metering"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Show mic metering"),
+             TranslatableString("action_description", "Show the input level on the record meter even when not recording — use it to check levels before you record"),
              Checkable::Yes
              ),
     UiAction(RECORD_TOGGLE_INPUT_MONITORING.toString(),
@@ -74,7 +74,7 @@ const UiActionList RecordUiActions::m_mainActions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Turn on input monitoring"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Turn on input monitoring"),
+             TranslatableString("action_description", "Hear your input through the playback device while recording — use headphones to avoid feedback, and expect some latency"),
              Checkable::Yes
              ),
     UiAction(RECORD_LEAD_IN_RECORDING_QUERY.toString(),

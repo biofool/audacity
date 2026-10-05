@@ -44,6 +44,8 @@ BaseSection {
             id: sampleRateCombo
 
             title: qsTrc("preferences", "Default sample rate")
+            toolTipTitle: qsTrc("preferences", "Default sample rate")
+            toolTipDescription: qsTrc("preferences", "The rate new tracks record at — must be supported by the recording device, or recording can fail to open")
             columnWidth: root.columnWidth
             titleHeight: sampleRateFormatRow.sharedTitleHeight
 

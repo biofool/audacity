@@ -21,12 +21,16 @@
  */
 import QtQuick 2.15
 
+import Muse.Ui 1.0
 import Muse.UiComponents
 
 Column {
     id: root
 
     property alias title: titleLabel.text
+
+    property string toolTipTitle: ""
+    property string toolTipDescription: ""
 
     property real columnWidth: 208
     property real controlWidth: 96
@@ -46,6 +50,18 @@ Column {
     signal valueEditingFinished(var newValue)
 
     spacing: 6
+
+    HoverHandler {
+        enabled: Boolean(root.toolTipTitle)
+
+        onHoveredChanged: {
+            if (hovered) {
+                ui.tooltip.show(root, root.toolTipTitle, root.toolTipDescription)
+            } else {
+                ui.tooltip.hide(root)
+            }
+        }
+    }
 
     StyledTextLabel {
         id: titleLabel

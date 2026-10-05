@@ -21,6 +21,7 @@
  */
 import QtQuick 2.15
 
+import Muse.Ui 1.0
 import Muse.UiComponents
 
 Column {
@@ -29,6 +30,9 @@ Column {
     property alias title: titleLabel.text
     property alias elide: titleLabel.elide
     property alias wrapMode: titleLabel.wrapMode
+
+    property string toolTipTitle: ""
+    property string toolTipDescription: ""
 
     property real columnWidth: 208
 
@@ -50,6 +54,18 @@ Column {
 
     function indexOfValue(value) {
         return comboBox.indexOfValue(value)
+    }
+
+    HoverHandler {
+        enabled: Boolean(root.toolTipTitle)
+
+        onHoveredChanged: {
+            if (hovered) {
+                ui.tooltip.show(root, root.toolTipTitle, root.toolTipDescription)
+            } else {
+                ui.tooltip.hide(root)
+            }
+        }
     }
 
     StyledTextLabel {

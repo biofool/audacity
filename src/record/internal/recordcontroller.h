@@ -12,6 +12,7 @@
 #include "framework/interactive/iinteractive.h"
 #include "framework/rcommand/commandable.h"
 #include "framework/rcommand/icommanddispatcher.h"
+#include "framework/toast/itoastservice.h"
 
 #include "context/iglobalcontext.h"
 #include "playback/iplaybackcontroller.h"
@@ -31,6 +32,7 @@ class RecordController : public IRecordController, public muse::actions::Actiona
 {
     muse::GlobalInject<record::IRecordConfiguration> configuration;
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;
+    muse::GlobalInject<muse::toast::IToastService> toastService;
 
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher{ this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
@@ -94,6 +96,8 @@ private:
     void stopPlaybackIfPaused();
     muse::Ret toggleMicMetering();
     muse::Ret toggleInputMonitoring();
+
+    void maybeShowFirstRecordHint();
 
     void setCurrentRecordStatus(RecordStatus status);
 

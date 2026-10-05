@@ -22,6 +22,8 @@ const muse::Settings::Key CUSTOM_TRACK_NAME_KEY("record", "GUI/TrackNames/Recodi
 const muse::Settings::Key TRACK_NUMBER_KEY("record", "GUI/TrackNames/TrackNumber");
 const muse::Settings::Key DATE_STAMP_KEY("record", "GUI/TrackNames/DateStamp");
 const muse::Settings::Key TIME_STAMP_KEY("record", "GUI/TrackNames/TimeStamp");
+
+const muse::Settings::Key FIRST_RECORD_HINT_TOAST_SHOWN("record", "record/firstRecordHintToastShown");
 }
 
 void RecordConfiguration::init()
@@ -45,6 +47,8 @@ void RecordConfiguration::init()
     muse::settings()->valueChanged(CROSSFADE_DURATION_KEY).onReceive(nullptr, [this](const muse::Val&) {
         m_crossfadeDurationChanged.notify();
     });
+
+    muse::settings()->setDefaultValue(FIRST_RECORD_HINT_TOAST_SHOWN, muse::Val(false));
 }
 
 bool RecordConfiguration::isMicMeteringOn() const
@@ -116,4 +120,18 @@ RecordingTrackNameOptions RecordConfiguration::recordingTrackNameOptions() const
     options.addDateStamp = muse::settings()->value(DATE_STAMP_KEY).toBool();
     options.addTimeStamp = muse::settings()->value(TIME_STAMP_KEY).toBool();
     return options;
+}
+
+bool RecordConfiguration::hasShownFirstRecordHintToast() const
+{
+    return muse::settings()->value(FIRST_RECORD_HINT_TOAST_SHOWN).toBool();
+}
+
+void RecordConfiguration::setHasShownFirstRecordHintToast(bool shown)
+{
+    if (hasShownFirstRecordHintToast() == shown) {
+        return;
+    }
+
+    muse::settings()->setSharedValue(FIRST_RECORD_HINT_TOAST_SHOWN, muse::Val(shown));
 }

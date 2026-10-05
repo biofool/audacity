@@ -11,7 +11,9 @@
 #include "playback/tests/mocks/playbackcontrollermock.h"
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "interactive/tests/mocks/interactivemock.h"
+#include "toast/tests/mocks/toastservicemock.h"
 
+#include "mocks/recordconfigurationmock.h"
 #include "mocks/recordmock.h"
 
 using ::testing::_;
@@ -33,12 +35,16 @@ public:
         m_selectionController = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_interactive = std::make_shared<NiceMock<muse::InteractiveMock> >();
         m_record = std::make_shared<NiceMock<RecordMock> >();
+        m_configuration = std::make_shared<NiceMock<RecordConfigurationMock> >();
+        m_toastService = std::make_shared<NiceMock<muse::toast::ToastServiceMock> >();
 
         m_controller->globalContext.set(m_globalContext);
         m_controller->playbackController.set(m_playbackController);
         m_controller->selectionController.set(m_selectionController);
         m_controller->interactive.set(m_interactive);
         m_controller->record.set(m_record);
+        m_controller->configuration.set(m_configuration);
+        m_controller->toastService.set(m_toastService);
 
         ON_CALL(*m_globalContext, playbackState())
         .WillByDefault(Return(m_playbackState));
@@ -79,6 +85,8 @@ public:
     std::shared_ptr<trackedit::SelectionControllerMock> m_selectionController;
     std::shared_ptr<muse::InteractiveMock> m_interactive;
     std::shared_ptr<RecordMock> m_record;
+    std::shared_ptr<RecordConfigurationMock> m_configuration;
+    std::shared_ptr<muse::toast::ToastServiceMock> m_toastService;
 };
 
 TEST_F(RecordControllerTests, LeadInRecordingStartsFromPlayheadNotSelectionStart)

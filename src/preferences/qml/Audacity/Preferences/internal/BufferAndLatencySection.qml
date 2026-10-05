@@ -21,6 +21,7 @@
  */
 import QtQuick 2.15
 
+import Muse.Ui 1.0
 import Muse.UiComponents
 
 import Audacity.UiComponents 1.0
@@ -43,6 +44,8 @@ BaseSection {
 
             IncrementalPropertyControlWithTitle {
                 title: qsTrc("preferences", "Buffer length")
+                toolTipTitle: qsTrc("preferences", "Buffer length")
+                toolTipDescription: qsTrc("preferences", "Smaller buffers reduce monitoring latency but can cause dropouts — increase it if playback or recording stutters")
 
                 currentValue: apiModel.bufferLength
 
@@ -66,6 +69,17 @@ BaseSection {
         Column {
             width: root.columnWidth
             spacing: root.columnSpacing
+
+            HoverHandler {
+                onHoveredChanged: {
+                    if (hovered) {
+                        ui.tooltip.show(parent, qsTrc("preferences", "Latency compensation"),
+                                        qsTrc("preferences", "Shifts recorded audio to cancel input lag — leave Automatic on unless overdubs land early or late"))
+                    } else {
+                        ui.tooltip.hide(parent)
+                    }
+                }
+            }
 
             StyledTextLabel {
                 text: qsTrc("preferences", "Latency compensation")

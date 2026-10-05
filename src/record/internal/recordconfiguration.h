@@ -34,6 +34,9 @@ public:
 
     RecordingTrackNameOptions recordingTrackNameOptions() const override;
 
+    bool hasShownFirstRecordHintToast() const override;
+    void setHasShownFirstRecordHintToast(bool shown) override;
+
 private:
     muse::async::Notification m_isMicMeteringOnChanged;
     muse::async::Notification m_isInputMonitoringOnChanged;
