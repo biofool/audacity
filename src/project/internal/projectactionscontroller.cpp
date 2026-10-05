@@ -211,15 +211,21 @@ void ProjectActionsController::init()
     //! NOTE The project page becomes current only once it is on top of the interactive
     //!      stack (i.e. after any startup dialogs are closed), so the tour does not
     //!      fight with the first-launch setup or welcome dialogs.
-    interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri& uri) {
-        if (uri == PROJECT_PAGE_URI && globalContext()->currentProject()) {
-            toursService()->onEvent(WELCOME_TOUR_EVENT);
-        }
-    });
+    if (toursService()) {
+        interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri& uri) {
+            if (uri == PROJECT_PAGE_URI && globalContext()->currentProject()) {
+                toursService()->onEvent(WELCOME_TOUR_EVENT);
+            }
+        });
+    }
 }
 
 void ProjectActionsController::registerTours()
 {
+    if (!toursService()) {
+        return;
+    }
+
     muse::tours::Tour welcomeTour;
     welcomeTour.id = u"welcome";
 

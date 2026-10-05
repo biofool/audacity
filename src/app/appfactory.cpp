@@ -21,6 +21,9 @@
 #include "framework/uicomponents/uicomponentsmodule.h"
 #include "framework/dockwindow/dockmodule.h"
 #include "framework/toast/toastmodule.h"
+#ifdef MUSE_MODULE_TOURS
+#include "framework/tours/toursmodule.h"
+#endif
 #include "framework/cloud/cloudmodule.h"
 #include "framework/network/networkmodule.h"
 #ifdef MUSE_MODULE_UPDATE
@@ -149,6 +152,9 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
     app->addModule(new muse::uicomponents::UiComponentsModule());
     app->addModule(new muse::dock::DockModule());
     app->addModule(new muse::toast::ToastModule());
+#ifdef MUSE_MODULE_TOURS
+    app->addModule(new muse::tours::ToursModule());
+#endif
 #ifdef MUSE_MODULE_SHORTCUTS
     app->addModule(new muse::shortcuts::ShortcutsModule());
 #endif
