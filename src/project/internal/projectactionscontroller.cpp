@@ -228,41 +228,41 @@ void ProjectActionsController::registerTours()
     //!      name). Controls that cannot be found are skipped by muse::tours::ToursProvider.
     welcomeTour.steps = {
         {
-            muse::trc("project/tour", "Set up your audio").translated(),
-            muse::trc("project/tour", "Choose your playback and recording devices. You can change them at any time.").translated(),
+            muse::mtrc("project/tour", "Set up your audio"),
+            muse::mtrc("project/tour", "Choose your playback and recording devices. You can change them at any time."),
             {}, {},
             muse::Uri(u"audacity://TopTool/ProjectToolBar/audio-setup")
         },
         {
-            muse::trc("project/tour", "Add a track").translated(),
-            muse::trc("project/tour", "Create a mono, stereo, or label track to start your project.").translated(),
+            muse::mtrc("project/tour", "Add a track"),
+            muse::mtrc("project/tour", "Create a mono, stereo, or label track to start your project."),
             {}, {},
             muse::Uri(u"audacity://AddNewTrackSection/AddTrackPanel/AddTrack")
         },
         {
-            muse::trc("project/tour", "Record audio").translated(),
-            muse::trc("project/tour",
-                      "Press the red record button in the playback toolbar, or press R, to record onto a new track.").translated(),
+            muse::mtrc("project/tour", "Record audio"),
+            muse::mtrc("project/tour",
+                      "Press the red record button in the playback toolbar, or press R, to record onto a new track."),
             {}, {},
             muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/toggle-loop-region")
         },
         {
-            muse::trc("project/tour", "Select and edit").translated(),
-            muse::trc("project/tour",
-                      "Click and drag on a clip to select audio, then use the editing tools, such as split, to shape it.").translated(),
+            muse::mtrc("project/tour", "Select and edit"),
+            muse::mtrc("project/tour",
+                      "Click and drag on a clip to select audio, then use the editing tools, such as split, to shape it."),
             {}, {},
             muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/split-tool")
         },
         {
-            muse::trc("project/tour", "Apply effects").translated(),
-            muse::trc("project/tour", "Browse and install effects, or add real-time effects to a track.").translated(),
+            muse::mtrc("project/tour", "Apply effects"),
+            muse::mtrc("project/tour", "Browse and install effects, or add real-time effects to a track."),
             {}, {},
             muse::Uri(u"audacity://TopTool/ProjectToolBar/get-effects")
         },
         {
-            muse::trc("project/tour", "Save and share").translated(),
-            muse::trc("project/tour",
-                      "Save your project with File > Save, share it to audio.com, or export it with File > Export audio.").translated(),
+            muse::mtrc("project/tour", "Save and share"),
+            muse::mtrc("project/tour",
+                      "Save your project with File > Save, share it to audio.com, or export it with File > Export audio."),
             {}, {},
             muse::Uri(u"audacity://TopTool/ProjectToolBar/file-share-audio")
         },
