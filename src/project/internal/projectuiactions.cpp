@@ -100,7 +100,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "&Save"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Save")
+             TranslatableString("action_description", "Save as an Audacity project file that only Audacity can open — use Export audio for MP3, WAV, …")
              ),
     UiAction("file-save-as",
              au::context::UiCtxAny,
@@ -116,7 +116,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "&Export audio…"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Export audio…")
+             TranslatableString("action_description", "Export the project as a standard audio file (MP3, WAV, …) that plays in other apps")
              ),
     UiAction("export-labels",
              au::context::UiCtxAny,

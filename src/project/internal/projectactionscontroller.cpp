@@ -1637,6 +1637,13 @@ bool ProjectActionsController::dispatchAudioPreviewToWindowWithProject(const mus
 
 void ProjectActionsController::exportAudio()
 {
+    if (!configuration()->hasShownExportGuidanceToast()) {
+        configuration()->setHasShownExportGuidanceToast(true);
+        toastService()->showInfo(trc("project", "Export creates an audio file"),
+                                 trc("project", "“Save” writes an Audacity project file that only Audacity can open. "
+                                                "“Export audio” creates a standard audio file (MP3, WAV, …) that plays in other apps."));
+    }
+
     if (audioComService()->enabled() && exportConfiguration()->askExportLocationType()) {
         muse::UriQuery query(ASK_LOCATION_TYPE_URI);
         query.addParam("purpose", Val(std::string("export")));

@@ -16,6 +16,7 @@ static const muse::Settings::Key LAST_SAVED_PROJECTS_PATH(module_name, "applicat
 static const muse::Settings::Key TEMPORARY_FILES_PATH("au3wrap", "Directories/TempDir");
 static const muse::Settings::Key LAST_USED_SAVE_LOCATION_TYPE(module_name, "project/lastUsedSaveLocationType");
 static const muse::Settings::Key SHOULD_ASK_SAVE_LOCATION_TYPE(module_name, "project/shouldAskSaveLocationType");
+static const muse::Settings::Key EXPORT_GUIDANCE_TOAST_SHOWN(module_name, "project/exportGuidanceToastShown");
 static const muse::Settings::Key HOME_PROJECTS_PAGE_VIEW_TYPE(module_name, "project/homeProjectsPageViewType");
 static const muse::Settings::Key AUTOSAVE_ENABLED_KEY(module_name, "project/autoSaveEnabled");
 static const muse::Settings::Key AUTOSAVE_INTERVAL_KEY(module_name, "project/autoSaveInterval");
@@ -32,6 +33,7 @@ void ProjectConfiguration::init()
     });
 
     muse::settings()->setDefaultValue(SHOULD_ASK_SAVE_LOCATION_TYPE, muse::Val(true));
+    muse::settings()->setDefaultValue(EXPORT_GUIDANCE_TOAST_SHOWN, muse::Val(false));
     muse::settings()->setDefaultValue(LAST_USED_SAVE_LOCATION_TYPE, muse::Val(SaveLocationType::Undefined));
     muse::settings()->setDefaultValue(LAST_SAVED_PROJECTS_PATH, muse::Val(globalConfiguration()->userDataPath() + "/Projects"));
 
@@ -189,6 +191,16 @@ bool ProjectConfiguration::shouldAskSaveLocationType() const
 void ProjectConfiguration::setShouldAskSaveLocationType(bool shouldAsk)
 {
     muse::settings()->setSharedValue(SHOULD_ASK_SAVE_LOCATION_TYPE, muse::Val(shouldAsk));
+}
+
+bool ProjectConfiguration::hasShownExportGuidanceToast() const
+{
+    return muse::settings()->value(EXPORT_GUIDANCE_TOAST_SHOWN).toBool();
+}
+
+void ProjectConfiguration::setHasShownExportGuidanceToast(bool shown)
+{
+    muse::settings()->setSharedValue(EXPORT_GUIDANCE_TOAST_SHOWN, muse::Val(shown));
 }
 
 muse::io::path_t ProjectConfiguration::temporaryDir() const

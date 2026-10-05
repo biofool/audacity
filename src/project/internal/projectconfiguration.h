@@ -46,6 +46,9 @@ public:
     bool shouldAskSaveLocationType() const override;
     void setShouldAskSaveLocationType(bool shouldAsk) override;
 
+    bool hasShownExportGuidanceToast() const override;
+    void setHasShownExportGuidanceToast(bool shown) override;
+
     muse::io::path_t temporaryDir() const override;
     void setTemporaryDir(const muse::io::path_t& path) override;
     muse::async::Channel<muse::io::path_t> temporaryDirChanged() const override;

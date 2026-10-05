@@ -43,6 +43,9 @@ public:
     virtual bool shouldAskSaveLocationType() const = 0;
     virtual void setShouldAskSaveLocationType(bool shouldAsk) = 0;
 
+    virtual bool hasShownExportGuidanceToast() const = 0;
+    virtual void setHasShownExportGuidanceToast(bool shown) = 0;
+
     virtual muse::io::path_t temporaryDir() const = 0;
     virtual void setTemporaryDir(const muse::io::path_t& path) = 0;
     virtual muse::async::Channel<muse::io::path_t> temporaryDirChanged() const = 0;
