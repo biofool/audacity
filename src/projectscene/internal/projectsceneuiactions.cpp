@@ -328,7 +328,7 @@ static UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Show label editor"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Show label editor")
+             TranslatableString("action_description", "Open the label editor to view and manage the text labels on label tracks")
              ),
     UiAction("realtime-effect-move-up",
              au::context::UiCtxAny,

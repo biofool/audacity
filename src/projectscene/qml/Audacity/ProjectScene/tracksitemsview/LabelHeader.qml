@@ -66,6 +66,8 @@ Rectangle {
         visible: root.enableCursorInteraction
 
         onPressed: function (e) {
+            ui.tooltip.hide(headerDragArea, true)
+
             var currentTime = Date.now()
 
             if (e.button === Qt.RightButton) {
@@ -108,6 +110,14 @@ Rectangle {
                 return
             }
             root.headerHoveredChanged(containsMouse)
+
+            if (containsMouse) {
+                ui.tooltip.show(headerDragArea,
+                                qsTrc("projectscene", "Label"),
+                                qsTrc("projectscene", "Text label on a label track — double-click to rename, drag to move, drag the edges to resize"))
+            } else {
+                ui.tooltip.hide(headerDragArea)
+            }
         }
     }
 

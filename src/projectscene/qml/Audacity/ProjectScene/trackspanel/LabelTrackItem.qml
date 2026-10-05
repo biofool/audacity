@@ -19,7 +19,7 @@ TrackItem {
 
             text: qsTrc("projectscene", "Add label")
             toolTipTitle: qsTrc("projectscene", "Add label")
-            toolTipDescription: qsTrc("projectscene", "Add a label at the current selection")
+            toolTipDescription: qsTrc("projectscene", "Add a text label to this label track at the current selection")
             toolTipShortcut: "Ctrl+B"
 
             opacity: root.collapsed ? 0 : 1

@@ -124,7 +124,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "&Export labels"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Export labels")
+             TranslatableString("action_description", "Export the text labels on label tracks to a file")
              ),
     UiAction("export-midi",
              au::context::UiCtxAny,
@@ -656,7 +656,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Regular interval labels"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Regular interval labels")
+             TranslatableString("action_description", "Add text labels at regular time intervals to a label track")
              ),
 
     // help menu

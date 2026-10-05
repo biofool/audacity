@@ -452,7 +452,7 @@ UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "New label track"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "New label track")
+             TranslatableString("action_description", "Add a label track that holds text labels marking points or ranges on the timeline")
              ),
     UiAction("label-add",
              au::context::UiCtxProjectOpened,
@@ -460,7 +460,7 @@ UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Add label"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Add label")
+             TranslatableString("action_description", "Add a text label to the selected label track at the current selection")
              ),
     UiAction("trim-audio-outside-selection",
              au::context::UiCtxProjectOpened,

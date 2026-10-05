@@ -70,6 +70,8 @@ Item {
 
             //: Label of the button that imports labels from a file
             text: qsTrc("projectscene", "Import")
+            toolTipTitle: qsTrc("projectscene", "Import labels")
+            toolTipDescription: qsTrc("projectscene", "Import text labels from a file into a label track")
             isNarrow: true
 
             navigation.name: "ImportButton"
@@ -88,6 +90,8 @@ Item {
 
             //: Label of the button that exports labels to a file
             text: qsTrc("projectscene", "Export")
+            toolTipTitle: qsTrc("projectscene", "Export labels")
+            toolTipDescription: qsTrc("projectscene", "Export all text labels to a file")
             isNarrow: true
 
             navigation.name: "ExportButton"
@@ -108,6 +112,8 @@ Item {
 
             //: Label of the button that deletes the selected labels
             text: qsTrc("projectscene", "Delete")
+            toolTipTitle: qsTrc("projectscene", "Delete labels")
+            toolTipDescription: qsTrc("projectscene", "Delete the selected text labels")
             isNarrow: true
 
             navigation.name: "DeleteButton"
@@ -125,6 +131,8 @@ Item {
             Layout.alignment: Qt.AlignRight
 
             text: qsTrc("projectscene", "Add label")
+            toolTipTitle: qsTrc("projectscene", "Add label")
+            toolTipDescription: qsTrc("projectscene", "Add a new text label to a label track")
             isNarrow: true
 
             navigation.name: "AddButton"
