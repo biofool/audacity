@@ -50,6 +50,11 @@ Row {
         startAccessibleName: qsTrc("projectscene", "Selection start")
         endAccessibleName: qsTrc("projectscene", "Selection end")
 
+        startToolTipTitle: qsTrc("projectscene", "Selection start")
+        startToolTipDescription: qsTrc("projectscene", "Where the selected range begins — edits and effects apply from this point")
+        endToolTipTitle: qsTrc("projectscene", "Selection end")
+        endToolTipDescription: qsTrc("projectscene", "Where the selected range ends — the arrow button changes the display format")
+
         onStartValueChangeRequested: function (newValue) {
             selectionModel.startTime = newValue
         }
@@ -96,6 +101,9 @@ Row {
         navigation.column: startEndTimeCode.navigationColumnEnd + 1
 
         accessibleName: durationLabel.text
+
+        toolTipTitle: qsTrc("projectscene", "Selection duration")
+        toolTipDescription: qsTrc("projectscene", "Length of the selected range — changing it moves the selection end")
 
         onValueChangeRequested: function (newValue) {
             selectionModel.endTime = selectionModel.startTime + newValue

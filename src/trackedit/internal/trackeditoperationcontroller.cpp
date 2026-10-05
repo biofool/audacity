@@ -207,6 +207,10 @@ muse::Ret TrackeditOperationController::pasteFromClipboard(secs_t begin, bool mo
         //! NOTE Importing files pushes its own "Import" history state
         if (!pastingFromSystemClipboard) {
             projectHistory()->pushHistoryState(muse::trc("trackedit", "Pasted from the clipboard"), muse::trc("trackedit", "Paste"));
+
+            if (moveAllTracks || clipboard()->trackDataSize() > 1) {
+                maybeShowMultiTrackPasteHint();
+            }
         }
 
         if (recreateRangeSelection) {
@@ -840,6 +844,19 @@ void TrackeditOperationController::maybeShowStretchHint()
                              muse::trc("trackedit", "Clips can be stretched to match project tempo changes. "
                                                     "Turn it off per clip via “Stretch with tempo changes” in the clip menu, "
                                                     "or change music-import tempo detection in Preferences → Music."));
+}
+
+void TrackeditOperationController::maybeShowMultiTrackPasteHint()
+{
+    if (configuration()->hasShownMultiTrackPasteHintToast()) {
+        return;
+    }
+
+    configuration()->setHasShownMultiTrackPasteHintToast(true);
+    toastService()->showInfo(muse::trc("trackedit", "Pasted across tracks"),
+                             muse::trc("trackedit", "Audio copied from multiple tracks is pasted onto successive "
+                                                    "tracks starting at the selected one — it can move or cover "
+                                                    "clips on other tracks. Use Ctrl+Z to undo."));
 }
 
 int64_t TrackeditOperationController::clipGroupId(const trackedit::ClipKey& clipKey) const

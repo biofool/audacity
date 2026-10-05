@@ -190,6 +190,7 @@ private:
     std::pair<std::string, std::string> stretchHistoryDescriptions(const ClipKeyList& clipKeyList, bool hasLabels, bool isLeft) const;
 
     void maybeShowStretchHint();
+    void maybeShowMultiTrackPasteHint();
 
     const std::unique_ptr<IUndoManager> m_undoManager;
     muse::async::Notification m_cancelDragEditRequested;

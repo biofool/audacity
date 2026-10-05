@@ -40,6 +40,9 @@ public:
     bool hasShownStretchHintToast() const override;
     void setHasShownStretchHintToast(bool shown) override;
 
+    bool hasShownMultiTrackPasteHintToast() const override;
+    void setHasShownMultiTrackPasteHintToast(bool shown) override;
+
 private:
     muse::async::Notification m_pasteAsNewClipChanged;
     muse::async::Notification m_askBeforeConvertingToMonoOrStereoChanged;

@@ -42,5 +42,8 @@ public:
 
     virtual bool hasShownStretchHintToast() const = 0;
     virtual void setHasShownStretchHintToast(bool shown) = 0;
+
+    virtual bool hasShownMultiTrackPasteHintToast() const = 0;
+    virtual void setHasShownMultiTrackPasteHintToast(bool shown) = 0;
 };
 }

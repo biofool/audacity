@@ -37,5 +37,8 @@ public:
 
     MOCK_METHOD(bool, hasShownStretchHintToast, (), (const, override));
     MOCK_METHOD(void, setHasShownStretchHintToast, (bool), (override));
+
+    MOCK_METHOD(bool, hasShownMultiTrackPasteHintToast, (), (const, override));
+    MOCK_METHOD(void, setHasShownMultiTrackPasteHintToast, (bool), (override));
 };
 }

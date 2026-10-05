@@ -49,6 +49,10 @@ RowLayout {
 
     property string accessibleName: ""
 
+    property string toolTipTitle: ""
+    property string toolTipDescription: ""
+    property string toolTipShortcut: ""
+
     signal valueChangeRequested(var newValue)
     signal valueEditingFinished
 
@@ -81,6 +85,18 @@ RowLayout {
         id: prv
 
         property bool isFieldsNavigationEnabled: false
+    }
+
+    HoverHandler {
+        enabled: Boolean(root.toolTipTitle)
+
+        onHoveredChanged: {
+            if (hovered) {
+                ui.tooltip.show(root, root.toolTipTitle, root.toolTipDescription, root.toolTipShortcut)
+            } else {
+                ui.tooltip.hide(root)
+            }
+        }
     }
 
     RoundedRectangle {

@@ -318,6 +318,8 @@ Item {
                 toggleToolTipTitle: isOptionEnabled ? qsTrc("projectscene", "Snapping: on") : qsTrc("projectscene", "Snapping: off")
                 toggleToolTipDescription: isOptionEnabled ? qsTrc("projectscene", "Clips and selections snap to the chosen grid — click to turn off")
                                                           : qsTrc("projectscene", "Clips and selections move freely — click to snap them to a grid")
+                dropdownToolTipTitle: qsTrc("projectscene", "Snap to")
+                dropdownToolTipDescription: qsTrc("projectscene", "Choose the grid that clips and selections snap to — seconds or beats")
 
                 current: Boolean(itemData) ? itemData.currentValue : ""
                 model: Boolean(itemData) ? itemData.availableSnapTypes : null

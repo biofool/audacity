@@ -15,6 +15,7 @@ static const muse::Settings::Key CLOSE_GAP_BEHAVIOR(moduleName, "trackedit/close
 static const muse::Settings::Key PASTE_BEHAVIOR(moduleName, "trackedit/pasteBehavior");
 static const muse::Settings::Key PASTE_INSERT_BEHAVIOR(moduleName, "trackedit/pasteInsertBehavior");
 static const muse::Settings::Key STRETCH_HINT_TOAST_SHOWN(moduleName, "trackedit/stretchHintToastShown");
+static const muse::Settings::Key MULTI_TRACK_PASTE_HINT_TOAST_SHOWN(moduleName, "trackedit/multiTrackPasteHintToastShown");
 
 void TrackeditConfiguration::init()
 {
@@ -49,6 +50,8 @@ void TrackeditConfiguration::init()
     });
 
     muse::settings()->setDefaultValue(STRETCH_HINT_TOAST_SHOWN, muse::Val(false));
+
+    muse::settings()->setDefaultValue(MULTI_TRACK_PASTE_HINT_TOAST_SHOWN, muse::Val(false));
 }
 
 bool TrackeditConfiguration::askBeforeConvertingToMonoOrStereo() const
@@ -176,5 +179,19 @@ void TrackeditConfiguration::setHasShownStretchHintToast(bool shown)
     }
 
     muse::settings()->setSharedValue(STRETCH_HINT_TOAST_SHOWN, muse::Val(shown));
+}
+
+bool TrackeditConfiguration::hasShownMultiTrackPasteHintToast() const
+{
+    return muse::settings()->value(MULTI_TRACK_PASTE_HINT_TOAST_SHOWN).toBool();
+}
+
+void TrackeditConfiguration::setHasShownMultiTrackPasteHintToast(bool shown)
+{
+    if (hasShownMultiTrackPasteHintToast() == shown) {
+        return;
+    }
+
+    muse::settings()->setSharedValue(MULTI_TRACK_PASTE_HINT_TOAST_SHOWN, muse::Val(shown));
 }
 }

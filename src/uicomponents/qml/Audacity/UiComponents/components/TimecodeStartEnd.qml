@@ -30,6 +30,13 @@ Rectangle {
     property alias startAccessibleName: startTimecode.accessibleName
     property alias endAccessibleName: endTimecode.accessibleName
 
+    property alias startToolTipTitle: startTimecode.toolTipTitle
+    property alias startToolTipDescription: startTimecode.toolTipDescription
+    property alias startToolTipShortcut: startTimecode.toolTipShortcut
+    property alias endToolTipTitle: endTimecode.toolTipTitle
+    property alias endToolTipDescription: endTimecode.toolTipDescription
+    property alias endToolTipShortcut: endTimecode.toolTipShortcut
+
     signal startValueChangeRequested(var newValue)
     signal endValueChangeRequested(var newValue)
     signal formatChangeRequested(var newFormat)

@@ -16,6 +16,8 @@ RowLayout {
     property string dropdownAccessibleName: title
     property string toggleToolTipTitle: ""
     property string toggleToolTipDescription: ""
+    property string dropdownToolTipTitle: ""
+    property string dropdownToolTipDescription: ""
     property var model: null
 
     property bool isOptionEnabled: false
@@ -142,7 +144,21 @@ RowLayout {
             }
 
             onContainsMouseChanged: {
-                if (!labelItem.truncated || menuLoader.isMenuOpened) {
+                if (menuLoader.isMenuOpened) {
+                    return
+                }
+
+                if (Boolean(root.dropdownToolTipTitle)) {
+                    if (mouseAreaItem.containsMouse) {
+                        ui.tooltip.show(dropdown, root.dropdownToolTipTitle, root.dropdownToolTipDescription)
+                    } else {
+                        ui.tooltip.hide(dropdown)
+                    }
+
+                    return
+                }
+
+                if (!labelItem.truncated) {
                     return
                 }
 
