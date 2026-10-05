@@ -10,6 +10,9 @@ FocusScope {
 
     property string text
 
+    property string toolTipTitle: ""
+    property string toolTipDescription: ""
+
     readonly property alias navigation: navCtrl
 
     implicitHeight: loader.implicitHeight
@@ -38,6 +41,18 @@ FocusScope {
     NavigationFocusBorder {
         enabled: navCtrl.enabled
         navigationCtrl: navCtrl
+    }
+
+    HoverHandler {
+        enabled: root.toolTipTitle !== "" && !loader.isEditState
+
+        onHoveredChanged: {
+            if (hovered) {
+                ui.tooltip.show(root, root.toolTipTitle, root.toolTipDescription)
+            } else {
+                ui.tooltip.hide(root)
+            }
+        }
     }
 
     Loader {

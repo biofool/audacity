@@ -187,6 +187,9 @@ ListItemBlank {
 
                     text: Boolean(root.item) ? root.item.title : ""
 
+                    toolTipTitle: qsTrc("projectscene", "Track name")
+                    toolTipDescription: qsTrc("projectscene", "Double-click to rename the track")
+
                     navigation.panel: root.headerNavigationPanel
                     navigation.order: root.navigation.order + 1
 

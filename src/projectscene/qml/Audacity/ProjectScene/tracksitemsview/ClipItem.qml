@@ -607,6 +607,14 @@ Rectangle {
                     }
 
                     root.headerHovered = containsMouse
+
+                    if (containsMouse && !root.splitToolActive) {
+                        ui.tooltip.show(headerDragArea,
+                                        qsTrc("projectscene", "Clip name"),
+                                        qsTrc("projectscene", "Double-click to rename — drag to move the clip"))
+                    } else {
+                        ui.tooltip.hide(headerDragArea)
+                    }
                 }
 
                 // during dragging, the clip is hidden, and do not receive mouse events
@@ -630,6 +638,8 @@ Rectangle {
                 // hence we need to let simple events pass (e.accepted = false). Unfortunately this breaks
                 // detecting composed events like doubleClick so we need to take care of it manually.
                 onPressed: function (e) {
+                    ui.tooltip.hide(headerDragArea, true)
+
                     if (root.splitToolActive) {
                         //! NOTE Let the press through so the split tool handles it
                         e.accepted = false
