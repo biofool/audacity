@@ -46,6 +46,11 @@ static const muse::actions::ActionQuery OPEN_CLOUD_AUDIO_FILE_URI("action://clou
 static const muse::actions::ActionQuery UPDATE_AUDIO_PREVIEW_ACTION("action://cloud/update-audio-preview");
 static const muse::actions::ActionQuery UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION("action://cloud/update-audio-preview-for-project");
 
+//! NOTE Tours event code for the first-run welcome tour.
+//!      The tour is triggered when a project page becomes current with a project loaded;
+//!      muse::tours::ToursConfiguration ensures it is shown only once.
+static const muse::String WELCOME_TOUR_EVENT(u"project-opened");
+
 namespace {
 QString cloudProjectOpenUrl(const muse::String& projectId, const muse::String& snapshotId)
 {
@@ -200,6 +205,70 @@ void ProjectActionsController::init()
     recordController()->isRecordingChanged().onNotify(this, [this]() {
         m_actionEnabledChanged.send(prohibitedWhileRecording());
     });
+
+    registerTours();
+
+    //! NOTE The project page becomes current only once it is on top of the interactive
+    //!      stack (i.e. after any startup dialogs are closed), so the tour does not
+    //!      fight with the first-launch setup or welcome dialogs.
+    interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri& uri) {
+        if (uri == PROJECT_PAGE_URI && globalContext()->currentProject()) {
+            toursService()->onEvent(WELCOME_TOUR_EVENT);
+        }
+    });
+}
+
+void ProjectActionsController::registerTours()
+{
+    muse::tours::Tour welcomeTour;
+    welcomeTour.id = u"welcome";
+
+    //! NOTE Step controlUris have the form audacity://<section>/<panel>/<control> and must
+    //!      match real navigation names (toolbar items use their action code as the control
+    //!      name). Controls that cannot be found are skipped by muse::tours::ToursProvider.
+    welcomeTour.steps = {
+        {
+            muse::trc("project/tour", "Set up your audio").translated(),
+            muse::trc("project/tour", "Choose your playback and recording devices. You can change them at any time.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://TopTool/ProjectToolBar/audio-setup")
+        },
+        {
+            muse::trc("project/tour", "Add a track").translated(),
+            muse::trc("project/tour", "Create a mono, stereo, or label track to start your project.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://AddNewTrackSection/AddTrackPanel/AddTrack")
+        },
+        {
+            muse::trc("project/tour", "Record audio").translated(),
+            muse::trc("project/tour",
+                      "Press the red record button in the playback toolbar, or press R, to record onto a new track.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/toggle-loop-region")
+        },
+        {
+            muse::trc("project/tour", "Select and edit").translated(),
+            muse::trc("project/tour",
+                      "Click and drag on a clip to select audio, then use the editing tools, such as split, to shape it.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/split-tool")
+        },
+        {
+            muse::trc("project/tour", "Apply effects").translated(),
+            muse::trc("project/tour", "Browse and install effects, or add real-time effects to a track.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://TopTool/ProjectToolBar/get-effects")
+        },
+        {
+            muse::trc("project/tour", "Save and share").translated(),
+            muse::trc("project/tour",
+                      "Save your project with File > Save, share it to audio.com, or export it with File > Export audio.").translated(),
+            {}, {},
+            muse::Uri(u"audacity://TopTool/ProjectToolBar/file-share-audio")
+        },
+    };
+
+    toursService()->registerTour(WELCOME_TOUR_EVENT, welcomeTour);
 }
 
 void ProjectActionsController::listenTrackeditProjectChanges()

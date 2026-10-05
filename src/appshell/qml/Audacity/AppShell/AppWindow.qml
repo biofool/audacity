@@ -27,6 +27,7 @@ import Muse.Shortcuts 1.0
 
 import Audacity.AppShell 1.0
 import Muse.Toast 1.0
+import Muse.Tours 1.0
 
 ApplicationWindow {
     id: root
@@ -82,6 +83,8 @@ ApplicationWindow {
     }
 
     ToastProvider {}
+
+    ToursProvider {}
 
     function showMinimizedWithSavePreviousState() {
         bridge.showMinimizedWithSavePreviousState()
