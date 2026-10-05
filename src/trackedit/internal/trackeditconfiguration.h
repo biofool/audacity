@@ -37,6 +37,9 @@ public:
     void setPasteInsertBehavior(PasteInsertBehavior value) override;
     muse::async::Notification pasteInsertBehaviorChanged() const override;
 
+    bool hasShownStretchHintToast() const override;
+    void setHasShownStretchHintToast(bool shown) override;
+
 private:
     muse::async::Notification m_pasteAsNewClipChanged;
     muse::async::Notification m_askBeforeConvertingToMonoOrStereoChanged;

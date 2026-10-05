@@ -14,6 +14,7 @@ static const muse::Settings::Key DELETE_BEHAVIOR(moduleName, "trackedit/deleteBe
 static const muse::Settings::Key CLOSE_GAP_BEHAVIOR(moduleName, "trackedit/closeGapBehavior");
 static const muse::Settings::Key PASTE_BEHAVIOR(moduleName, "trackedit/pasteBehavior");
 static const muse::Settings::Key PASTE_INSERT_BEHAVIOR(moduleName, "trackedit/pasteInsertBehavior");
+static const muse::Settings::Key STRETCH_HINT_TOAST_SHOWN(moduleName, "trackedit/stretchHintToastShown");
 
 void TrackeditConfiguration::init()
 {
@@ -46,6 +47,8 @@ void TrackeditConfiguration::init()
     muse::settings()->valueChanged(PASTE_INSERT_BEHAVIOR).onReceive(nullptr, [this](const muse::Val&) {
         m_pasteInsertBehaviorChanged.notify();
     });
+
+    muse::settings()->setDefaultValue(STRETCH_HINT_TOAST_SHOWN, muse::Val(false));
 }
 
 bool TrackeditConfiguration::askBeforeConvertingToMonoOrStereo() const
@@ -159,5 +162,19 @@ void TrackeditConfiguration::setPasteAsNewClip(bool value)
 muse::async::Notification TrackeditConfiguration::pasteAsNewClipChanged() const
 {
     return m_pasteAsNewClipChanged;
+}
+
+bool TrackeditConfiguration::hasShownStretchHintToast() const
+{
+    return muse::settings()->value(STRETCH_HINT_TOAST_SHOWN).toBool();
+}
+
+void TrackeditConfiguration::setHasShownStretchHintToast(bool shown)
+{
+    if (hasShownStretchHintToast() == shown) {
+        return;
+    }
+
+    muse::settings()->setSharedValue(STRETCH_HINT_TOAST_SHOWN, muse::Val(shown));
 }
 }

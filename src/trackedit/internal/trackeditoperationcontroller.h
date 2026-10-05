@@ -6,6 +6,8 @@
 #include "async/asyncable.h"
 
 #include "modularity/ioc.h"
+#include "framework/toast/itoastservice.h"
+#include "itrackeditconfiguration.h"
 #include "itracksinteraction.h"
 #include "iclipsinteraction.h"
 #include "ilabelsinteraction.h"
@@ -31,6 +33,9 @@ class TrackeditOperationController : public ITrackeditInteraction, public muse::
     muse::ContextInject<importexport::IImporter> importer { this };
     muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher{ this };
+
+    muse::GlobalInject<ITrackeditConfiguration> configuration;
+    muse::GlobalInject<muse::toast::IToastService> toastService;
 
 public:
     TrackeditOperationController(const muse::modularity::ContextPtr& ctx, std::unique_ptr<IUndoManager> undoManager);
@@ -183,6 +188,8 @@ private:
     LabelKeyList selectedLabels() const;
 
     std::pair<std::string, std::string> stretchHistoryDescriptions(const ClipKeyList& clipKeyList, bool hasLabels, bool isLeft) const;
+
+    void maybeShowStretchHint();
 
     const std::unique_ptr<IUndoManager> m_undoManager;
     muse::async::Notification m_cancelDragEditRequested;

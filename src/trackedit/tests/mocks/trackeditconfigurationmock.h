@@ -34,5 +34,8 @@ public:
     MOCK_METHOD(PasteInsertBehavior, pasteInsertBehavior, (), (const, override));
     MOCK_METHOD(void, setPasteInsertBehavior, (PasteInsertBehavior), (override));
     MOCK_METHOD(muse::async::Notification, pasteInsertBehaviorChanged, (), (const, override));
+
+    MOCK_METHOD(bool, hasShownStretchHintToast, (), (const, override));
+    MOCK_METHOD(void, setHasShownStretchHintToast, (bool), (override));
 };
 }

@@ -39,5 +39,8 @@ public:
     virtual PasteInsertBehavior pasteInsertBehavior() const = 0;
     virtual void setPasteInsertBehavior(PasteInsertBehavior value) = 0;
     virtual muse::async::Notification pasteInsertBehaviorChanged() const = 0;
+
+    virtual bool hasShownStretchHintToast() const = 0;
+    virtual void setHasShownStretchHintToast(bool shown) = 0;
 };
 }

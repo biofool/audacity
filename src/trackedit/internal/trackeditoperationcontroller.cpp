@@ -648,6 +648,7 @@ bool TrackeditOperationController::stretchClipsLeft(const ClipKeyList& clipKeyLi
     if (completed) {
         auto [longDesc, msg] = stretchHistoryDescriptions(clipKeyList, hasLabels, true);
         projectHistory()->pushHistoryState(longDesc, msg, type);
+        maybeShowStretchHint();
     }
 
     return success;
@@ -673,6 +674,7 @@ bool TrackeditOperationController::stretchClipsRight(const ClipKeyList& clipKeyL
     if (completed) {
         auto [longDesc, msg] = stretchHistoryDescriptions(clipKeyList, hasLabels, false);
         projectHistory()->pushHistoryState(longDesc, msg, type);
+        maybeShowStretchHint();
     }
 
     return success;
@@ -820,7 +822,24 @@ bool TrackeditOperationController::insertSilence(const TrackIdList& trackIds, se
 
 bool TrackeditOperationController::toggleStretchToMatchProjectTempo(const ClipKey& clipKey)
 {
-    return clipsInteraction()->toggleStretchToMatchProjectTempo(clipKey);
+    const bool success = clipsInteraction()->toggleStretchToMatchProjectTempo(clipKey);
+    if (success) {
+        maybeShowStretchHint();
+    }
+    return success;
+}
+
+void TrackeditOperationController::maybeShowStretchHint()
+{
+    if (configuration()->hasShownStretchHintToast()) {
+        return;
+    }
+
+    configuration()->setHasShownStretchHintToast(true);
+    toastService()->showInfo(muse::trc("trackedit", "Clips can follow tempo changes"),
+                             muse::trc("trackedit", "Clips can be stretched to match project tempo changes. "
+                                                    "Turn it off per clip via “Stretch with tempo changes” in the clip menu, "
+                                                    "or change music-import tempo detection in Preferences → Music."));
 }
 
 int64_t TrackeditOperationController::clipGroupId(const trackedit::ClipKey& clipKey) const

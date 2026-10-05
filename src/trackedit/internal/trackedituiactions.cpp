@@ -403,7 +403,7 @@ UiActionList STATIC_ACTIONS = {
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Stretch with tempo changes"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Stretch with tempo changes"),
+             TranslatableString("action_description", "When enabled, this clip stretches automatically to match project tempo changes"),
              Checkable::Yes
              ),
     UiAction("clip-pitch-speed-open",
