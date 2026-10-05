@@ -119,6 +119,9 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: root.contentHeight
 
+            //: Hint text inside the plugin manager search field
+            hint: qsTrc("effects", "Search effects")
+
             navigation.name: "SearchField"
             navigation.panel: root.navigationPanel
             navigation.order: dropdownsRepeater.count
