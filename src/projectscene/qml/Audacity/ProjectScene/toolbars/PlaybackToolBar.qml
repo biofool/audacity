@@ -96,6 +96,13 @@ Item {
                 iconColor: Boolean(itemData) ? itemData.iconColor : ui.theme.fontPrimaryColor
                 accentColor: Boolean(itemData) ? itemData.backgroundColor : ui.theme.buttonColor
                 accentButton: Boolean(itemData) ? itemData.selected : false
+
+                //! NOTE muse::tours addresses controls by a section/panel/name URI, so the
+                //!      name must not contain slashes. The record action's code
+                //!      ("action://record/start") does, so it gets a plain name here.
+                navigation.name: Boolean(itemData)
+                                 ? (itemData.id === "action://record/start" ? "record" : itemData.id)
+                                 : ""
             }
         }
 

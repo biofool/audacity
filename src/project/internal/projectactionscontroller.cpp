@@ -231,7 +231,9 @@ void ProjectActionsController::registerTours()
 
     //! NOTE Step controlUris have the form audacity://<section>/<panel>/<control> and must
     //!      match real navigation names (toolbar items use their action code as the control
-    //!      name). Controls that cannot be found are skipped by muse::tours::ToursProvider.
+    //!      name, unless a slash-free name is assigned in QML). Controls that cannot be
+    //!      found are skipped by muse::tours::ToursProvider, so steps anchored to
+    //!      platform- or config-dependent controls degrade gracefully.
     welcomeTour.steps = {
         {
             muse::mtrc("project/tour", "Set up your audio"),
@@ -250,7 +252,9 @@ void ProjectActionsController::registerTours()
             muse::mtrc("project/tour",
                       "Press the red record button in the playback toolbar, or press R, to record onto a new track."),
             {}, {},
-            muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/toggle-loop-region")
+            //! NOTE "record" is the slash-free navigation name PlaybackToolBar.qml's
+            //!      controlComp gives to the action://record/start toolbar item.
+            muse::Uri(u"audacity://PlaybackSection/PlaybackToolBar/record")
         },
         {
             muse::mtrc("project/tour", "Select and edit"),
@@ -261,15 +265,20 @@ void ProjectActionsController::registerTours()
         },
         {
             muse::mtrc("project/tour", "Apply effects"),
-            muse::mtrc("project/tour", "Browse and install effects, or add real-time effects to a track."),
+            muse::mtrc("project/tour",
+                      "Get more effects online, or add real-time effects to a track — they're non-destructive and can be reordered."),
             {}, {},
+            //! NOTE get-effects is not in the toolbar on Linux builds; this step is
+            //!      skipped there (muse::tours skips steps whose control is absent).
             muse::Uri(u"audacity://TopTool/ProjectToolBar/get-effects")
         },
         {
             muse::mtrc("project/tour", "Save and share"),
             muse::mtrc("project/tour",
-                      "Save your project with File > Save, share it to audio.com, or export it with File > Export audio."),
+                      "Save your project with File > Save, share it to audio.com, or export it as an audio file with File > Export audio."),
             {}, {},
+            //! NOTE file-share-audio only exists when audio.com is enabled; the step is
+            //!      skipped otherwise, so mentioning audio.com here is safe.
             muse::Uri(u"audacity://TopTool/ProjectToolBar/file-share-audio")
         },
     };
