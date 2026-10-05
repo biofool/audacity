@@ -1007,6 +1007,13 @@ Ret ProjectActionsController::canSaveProject() const
 
 bool ProjectActionsController::saveProject(SaveMode saveMode, SaveLocationType saveLocationType, bool force)
 {
+    if (!configuration()->hasShownSaveLocationHintToast()) {
+        configuration()->setHasShownSaveLocationHintToast(true);
+        toastService()->showInfo(trc("project", "Local save vs cloud save"),
+                                 trc("project", "“Save” writes an Audacity project file (.aup4) stored on this computer. "
+                                                "“Save to cloud” stores the project in your audio.com account instead, where it stays in sync and can be opened on other devices."));
+    }
+
     if (m_isProjectSaving) {
         return false;
     }

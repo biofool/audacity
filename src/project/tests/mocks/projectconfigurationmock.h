@@ -40,6 +40,9 @@ public:
     MOCK_METHOD(bool, hasShownExportGuidanceToast, (), (const, override));
     MOCK_METHOD(void, setHasShownExportGuidanceToast, (bool shown), (override));
 
+    MOCK_METHOD(bool, hasShownSaveLocationHintToast, (), (const, override));
+    MOCK_METHOD(void, setHasShownSaveLocationHintToast, (bool shown), (override));
+
     MOCK_METHOD(muse::io::path_t, temporaryDir, (), (const, override));
     MOCK_METHOD(void, setTemporaryDir, (const muse::io::path_t& path), (override));
     MOCK_METHOD(muse::async::Channel<muse::io::path_t>, temporaryDirChanged, (), (const, override));
