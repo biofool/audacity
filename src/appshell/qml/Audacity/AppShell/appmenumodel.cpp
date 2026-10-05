@@ -500,6 +500,7 @@ MenuItem* AppMenuModel::makeHelpMenu()
     MenuItemList helpItems {
         // makeMenuItem("tutorials"),
         makeMenuItem("online-handbook"),
+        makeMenuItem("shortcuts-preferences"),
         makeSeparator(),
         // makeMenu(TranslatableString("appshell-menu-diagnostics", "Diagnostics"), makeDiagnosticsItems(), "menu-diagnostics", false),
         // makeSeparator(),

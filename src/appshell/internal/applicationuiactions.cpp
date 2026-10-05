@@ -83,6 +83,14 @@ const UiActionList ApplicationUiActions::m_actions = {
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open online handbook")
              ),
+    UiAction("shortcuts-preferences",
+             au::context::UiCtxAny,
+             au::context::CTX_ANY,
+             //: Action title: shown as a menu item or a button label; keep it short
+             TranslatableString("action", "Keyboard &shortcuts"),
+             //: Action description: shown as a tooltip; can be a full sentence
+             TranslatableString("action_description", "Open keyboard shortcuts preferences")
+             ),
     UiAction("ask-help",
              au::context::UiCtxAny,
              au::context::CTX_DISABLED,
