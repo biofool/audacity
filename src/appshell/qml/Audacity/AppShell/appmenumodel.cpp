@@ -502,6 +502,7 @@ MenuItem* AppMenuModel::makeHelpMenu()
         makeMenuItem("context-help"),
         makeMenuItem("online-handbook"),
         makeMenuItem("shortcuts-preferences"),
+        makeMenuItem("command-palette"),
         makeSeparator(),
         // makeMenu(TranslatableString("appshell-menu-diagnostics", "Diagnostics"), makeDiagnosticsItems(), "menu-diagnostics", false),
         // makeSeparator(),

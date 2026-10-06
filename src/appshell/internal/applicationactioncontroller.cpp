@@ -87,6 +87,7 @@ void ApplicationActionController::init()
 
     dispatcher()->reg(this, "audio-settings", this, &ApplicationActionController::openAudioSettingsDialog);
     dispatcher()->reg(this, "shortcuts-preferences", this, &ApplicationActionController::openShortcutsPreferencesDialog);
+    dispatcher()->reg(this, "command-palette", this, &ApplicationActionController::openCommandPalette);
     dispatcher()->reg(this, "editing-preferences", this, &ApplicationActionController::openEditingPreferencesDialog);
     dispatcher()->reg(this, "spectrogram-preferences", this, &ApplicationActionController::openSpectrogramPreferencesDialog);
 
@@ -650,6 +651,11 @@ void ApplicationActionController::openShortcutsPreferencesDialog()
     preferencesUri.addParam("currentPageId", muse::Val("shortcuts"));
 
     interactive()->open(preferencesUri);
+}
+
+void ApplicationActionController::openCommandPalette()
+{
+    interactive()->open("audacity://command-palette");
 }
 
 void ApplicationActionController::openEditingPreferencesDialog()

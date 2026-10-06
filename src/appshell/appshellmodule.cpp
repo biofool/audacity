@@ -81,6 +81,7 @@ void AppShellModule::resolveImports()
         ir->registerQmlUri(muse::Uri("audacity://firstLaunchSetup"), "Audacity.AppShell", "FirstLaunchSetupDialog");
         ir->registerQmlUri(muse::Uri("audacity://signin/audiocom"), "Audacity.AppShell", "SigninAudiocomDialog");
         ir->registerQmlUri(muse::Uri("audacity://welcomedialog"), "Audacity.AppShell", "WelcomeDialog");
+        ir->registerQmlUri(muse::Uri("audacity://command-palette"), "Audacity.AppShell", "CommandPaletteDialog");
     }
 }
 

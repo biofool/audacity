@@ -99,6 +99,14 @@ const UiActionList ApplicationUiActions::m_actions = {
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open keyboard shortcuts preferences")
              ),
+    UiAction("command-palette",
+             au::context::UiCtxAny,
+             au::context::CTX_ANY,
+             //: Action title: shown as a menu item or a button label; keep it short
+             TranslatableString("action", "Command &palette…"),
+             //: Action description: shown as a tooltip; can be a full sentence
+             TranslatableString("action_description", "Open the command palette")
+             ),
     UiAction("ask-help",
              au::context::UiCtxAny,
              au::context::CTX_DISABLED,

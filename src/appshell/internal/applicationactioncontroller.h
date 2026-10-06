@@ -119,6 +119,7 @@ private:
     void openPreferencesDialog();
     void openAudioSettingsDialog();
     void openShortcutsPreferencesDialog();
+    void openCommandPalette();
     void openEditingPreferencesDialog();
     void openSpectrogramPreferencesDialog();
 

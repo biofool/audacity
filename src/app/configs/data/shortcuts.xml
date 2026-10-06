@@ -1050,6 +1050,10 @@
         <seq>F1</seq>
     </SC>
     <SC>
+        <key>command-palette</key>
+        <seq>Ctrl+K</seq>
+    </SC>
+    <SC>
         <key>select-tool</key>
     </SC>
     <SC>
