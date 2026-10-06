@@ -403,6 +403,162 @@ void ApplicationActionController::openContextHelpPage()
 
 std::string ApplicationActionController::handbookPageForCurrentUri() const
 {
+    //! NOTE If a menu or other popup is open, the highlighted item is the active
+    //! navigation control and its name is the menu-item id: the action code plus
+    //! a numeric index suffix (see AppMenuModel::makeId). Map the action to the
+    //! page for the menu it lives in; unknown items fall through to the URI map.
+    static const std::vector<std::pair<std::string, std::string> > ACTION_TO_HANDBOOK_PAGE {
+        // File menu
+        { "file-new", "man/file_menu.html" },
+        { "file-open", "man/file_menu.html" },
+        { "file-open-recent", "man/file_menu.html" },
+        { "project-import", "man/file_menu.html" },
+        { "file-save", "man/file_menu.html" },
+        { "file-save-to-cloud", "man/file_menu.html" },
+        { "file-save-as", "man/file_menu.html" },
+        { "action://cloud/update-audio-preview", "man/file_menu.html" },
+        { "export-audio", "man/file_menu.html" },
+        { "export-labels", "man/file_menu.html" },
+        { "file-share-audio", "man/file_menu.html" },
+        { "file-close", "man/file_menu.html" },
+        { "quit", "man/file_menu.html" },
+
+        // Edit menu (incl. Clip and Label submenus)
+        { "action://trackedit/undo", "man/edit_menu.html" },
+        { "action://trackedit/redo", "man/edit_menu.html" },
+        { "action://cut", "man/edit_menu.html" },
+        { "action://copy", "man/edit_menu.html" },
+        { "action://paste", "man/edit_menu.html" },
+        { "action://delete", "man/edit_menu.html" },
+        { "duplicate", "man/edit_menu.html" },
+        { "delete-per-track-ripple", "man/edit_menu.html" },
+        { "trim-clip", "man/edit_menu.html" },
+        { "split", "man/edit_menu.html" },
+        { "split-into-new-track", "man/edit_menu.html" },
+        { "disjoin", "man/edit_menu.html" },
+        { "join", "man/edit_menu.html" },
+        { "group-clips", "man/edit_menu.html" },
+        { "ungroup-clips", "man/edit_menu.html" },
+        { "silence-audio-selection", "man/edit_menu.html" },
+        { "open-metadata-editor", "man/edit_menu.html" },
+        { "preference-dialog", "man/edit_menu.html" },
+        { "label-add", "man/label_tracks.html" },
+        { "paste-new-label", "man/label_tracks.html" },
+        { "open-label-editor", "man/label_tracks.html" },
+
+        // Select menu (incl. Region and Looping submenus)
+        { "select-all", "man/select_menu.html" },
+        { "clear-selection", "man/select_menu.html" },
+        { "select-all-tracks", "man/select_menu.html" },
+        { "select-left-of-playback-position", "man/select_menu.html" },
+        { "select-right-of-playback-position", "man/select_menu.html" },
+        { "select-track-start-to-cursor", "man/select_menu.html" },
+        { "select-cursor-to-track-end", "man/select_menu.html" },
+        { "select-track-start-to-end", "man/select_menu.html" },
+        { "select-previous-clip-boundary-to-cursor", "man/select_menu.html" },
+        { "select-cursor-to-next-clip-boundary", "man/select_menu.html" },
+        { "select-previous-clip", "man/select_menu.html" },
+        { "select-next-clip", "man/select_menu.html" },
+        { "skip-to-selection-start", "man/select_menu.html" },
+        { "skip-to-selection-end", "man/select_menu.html" },
+        { "toggle-loop-region", "man/select_menu.html" },
+        { "clear-loop-region", "man/select_menu.html" },
+        { "set-loop-region-to-selection", "man/select_menu.html" },
+        { "set-loop-region-in-out", "man/select_menu.html" },
+        { "zero-cross", "man/select_menu.html" },
+
+        // View menu (incl. Zoom submenu)
+        { "toggle-effects", "man/view_menu.html" },
+        { "toggle-history", "man/view_menu.html" },
+        { "fullscreen", "man/view_menu.html" },
+        { "toggle-clipping-in-waveform", "man/view_menu.html" },
+        { "toggle-rms-in-waveform", "man/view_menu.html" },
+        { "toggle-vertical-rulers", "man/view_menu.html" },
+        { "dock-restore-default-layout", "man/view_menu.html" },
+        { "zoom-in", "man/view_menu.html" },
+        { "zoom-out", "man/view_menu.html" },
+        { "zoom-default", "man/view_menu.html" },
+        { "zoom-to-selection", "man/view_menu.html" },
+        { "zoom-toggle", "man/view_menu.html" },
+        { "zoom-to-fit-project", "man/view_menu.html" },
+        { "collapse-all-tracks", "man/view_menu.html" },
+        { "expand-all-tracks", "man/view_menu.html" },
+
+        // Record menu (no record_menu page in the manual — use the recording guide)
+        { "command://record/on-current-track", "man/recording.html" },
+        { "command://record/on-new-track", "man/recording.html" },
+        { "action://record/lead-in-recording", "man/recording.html" },
+        { "set-up-timed-recording", "man/recording.html" },
+        { "toggle-sound-activated-recording", "man/recording.html" },
+        { "set-sound-activation-level", "man/recording.html" },
+
+        // Tracks menu
+        { "new-mono-track", "man/tracks_menu.html" },
+        { "new-stereo-track", "man/tracks_menu.html" },
+        { "new-label-track", "man/tracks_menu.html" },
+        { "track-duplicate", "man/tracks_menu.html" },
+        { "align-end-to-end", "man/tracks_menu.html" },
+        { "align-together", "man/tracks_menu.html" },
+        { "align-start-to-zero", "man/tracks_menu.html" },
+        { "align-start-to-playhead", "man/tracks_menu.html" },
+        { "align-start-to-selection-end", "man/tracks_menu.html" },
+        { "align-end-to-playhead", "man/tracks_menu.html" },
+        { "align-end-to-selection-end", "man/tracks_menu.html" },
+
+        // Effect menu
+        { "add-realtime-effects", "man/effect_menu.html" },
+        { "repeat-last-effect", "man/effect_menu.html" },
+
+        // Analyze menu
+        { "contrast-analyzer", "man/analyze_menu.html" },
+        { "plot-spectrum", "man/analyze_menu.html" },
+
+        // Tools menu
+        { "plugin-manager", "man/manage_effects_generators_and_analyzers.html" },
+        { "manage-macros", "man/tools_menu.html" },
+        { "raw-data-import", "man/tools_menu.html" },
+        { "reset-configuration", "man/tools_menu.html" },
+
+        // Extra menu
+        { "prev-window", "man/extra_menu.html" },
+        { "next-window", "man/extra_menu.html" },
+        { "benchmark", "man/extra_menu.html" },
+        { "regular-interval-labels", "man/extra_menu.html" },
+        { "sort-by-time", "man/extra_menu.html" },
+
+        // Help menu
+        { "tutorials", "man/help_menu.html" },
+        { "context-help", "man/help_menu.html" },
+        { "online-handbook", "man/help_menu.html" },
+        { "shortcuts-preferences", "man/help_menu.html" },
+        { "link-account", "man/help_menu.html" },
+        { "about-audacity", "man/help_menu.html" },
+        { "about-qt", "man/help_menu.html" },
+        { "revert-factory", "man/help_menu.html" },
+        { "check-update", "man/help_menu.html" },
+    };
+
+    const muse::ui::INavigationControl* activeControl = navigationController()->activeControl();
+    if (activeControl && activeControl->panel() && activeControl->panel()->section()
+        && activeControl->panel()->section()->type() == muse::ui::INavigationSection::Type::Exclusive) {
+        std::string actionId = activeControl->name().toStdString();
+        while (!actionId.empty() && actionId.back() >= '0' && actionId.back() <= '9') {
+            actionId.pop_back();
+        }
+
+        for (const auto& entry : ACTION_TO_HANDBOOK_PAGE) {
+            if (entry.first == actionId) {
+                return entry.second;
+            }
+        }
+
+        //! NOTE Plugin menu items (Generate/Effect/Analyze/Tools) carry dynamic
+        //! action://effects/* codes — the index page covers all of them.
+        if (actionId.find("action://effects/") == 0) {
+            return "man/index_of_effects_generators_and_analyzers.html";
+        }
+    }
+
     //! NOTE Maps the currently-open top-level page or dialog URI to a page in
     //! the online handbook (https://manual.audacityteam.org). Entries are
     //! matched by URI prefix so sub-dialogs share their parent's page.
