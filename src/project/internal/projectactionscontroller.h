@@ -19,6 +19,7 @@
 #include "iopensaveprojectscenario.h"
 #include "framework/toast/itoastservice.h"
 #include "framework/tours/itoursservice.h"
+#include "framework/ui/inavigationcontroller.h"
 #include "trackedit/iprojecthistory.h"
 #include "record/irecordcontroller.h"
 #include "importexport/export/internal/exportconfiguration.h"
@@ -59,6 +60,7 @@ class ProjectActionsController : public IProjectFilesController, public muse::ac
     muse::ContextInject<au3cloud::IAu3AudioComService> audioComService { this };
     muse::ContextInject<effects::IMissingEffectChecker> missingEffectChecker { this };
     muse::ContextInject<muse::tours::IToursService> toursService { this };
+    muse::ContextInject<muse::ui::INavigationController> navigationController { this };
 
 public:
     ProjectActionsController(muse::modularity::ContextPtr ctx = nullptr);
@@ -152,7 +154,9 @@ private:
     void listenCloudProjectChanges();
 
     void registerTours();
+    void tryShowWelcomeTour();
 
+    bool m_welcomeTourEventFired = false;
     bool m_isProjectSaving = false;
     bool m_isProjectClosing = false;
     bool m_isProjectProcessing = false;

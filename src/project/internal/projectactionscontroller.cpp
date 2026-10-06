@@ -210,14 +210,38 @@ void ProjectActionsController::init()
 
     //! NOTE The project page becomes current only once it is on top of the interactive
     //!      stack (i.e. after any startup dialogs are closed), so the tour does not
-    //!      fight with the first-launch setup or welcome dialogs.
+    //!      fight with the first-launch setup or welcome dialogs. The tour event is
+    //!      then deferred until the page's navigation controls have registered —
+    //!      navigationChanged() fires when the page finishes activating them.
     if (toursService()) {
         interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri& uri) {
-            if (uri == PROJECT_PAGE_URI && globalContext()->currentProject()) {
-                toursService()->onEvent(WELCOME_TOUR_EVENT);
+            if (uri == PROJECT_PAGE_URI) {
+                tryShowWelcomeTour();
+            }
+        });
+        navigationController()->navigationChanged().onNotify(this, [this]() {
+            if (interactive()->currentUri().val == PROJECT_PAGE_URI) {
+                tryShowWelcomeTour();
             }
         });
     }
+}
+
+void ProjectActionsController::tryShowWelcomeTour()
+{
+    if (m_welcomeTourEventFired || !toursService() || !globalContext()->currentProject()) {
+        return;
+    }
+
+    //! NOTE Navigation controls register asynchronously while the page's QML loads.
+    //!      Fire only once the first anchored control exists — otherwise muse::tours
+    //!      would skip every step and still mark the tour as shown.
+    if (!navigationController()->findControl("TopTool", "ProjectToolBar", "audio-setup")) {
+        return;
+    }
+
+    m_welcomeTourEventFired = true;
+    toursService()->onEvent(WELCOME_TOUR_EVENT);
 }
 
 void ProjectActionsController::registerTours()
