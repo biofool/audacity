@@ -55,7 +55,7 @@ void CommandPaletteModel::loadActions()
             continue;
         }
 
-        if (action.code == "command-palette") {
+        if (action.code == "open-command-palette") {
             continue;
         }
 
