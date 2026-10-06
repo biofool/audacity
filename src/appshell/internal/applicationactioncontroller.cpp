@@ -406,141 +406,177 @@ std::string ApplicationActionController::handbookPageForCurrentUri() const
     //! NOTE If a menu or other popup is open, the highlighted item is the active
     //! navigation control and its name is the menu-item id: the action code plus
     //! a numeric index suffix (see AppMenuModel::makeId). Map the action to the
-    //! page for the menu it lives in; unknown items fall through to the URI map.
+    //! handbook page for the item; unknown items fall through to the URI map.
     static const std::vector<std::pair<std::string, std::string> > ACTION_TO_HANDBOOK_PAGE {
         // File menu
-        { "file-new", "man/file_menu.html" },
-        { "file-open", "man/file_menu.html" },
-        { "file-open-recent", "man/file_menu.html" },
-        { "project-import", "man/file_menu.html" },
-        { "file-save", "man/file_menu.html" },
-        { "file-save-to-cloud", "man/file_menu.html" },
-        { "file-save-as", "man/file_menu.html" },
-        { "action://cloud/update-audio-preview", "man/file_menu.html" },
-        { "export-audio", "man/file_menu.html" },
-        { "export-labels", "man/file_menu.html" },
-        { "file-share-audio", "man/file_menu.html" },
-        { "file-close", "man/file_menu.html" },
-        { "quit", "man/file_menu.html" },
+        { "file-new", "man/file_menu.html#New_.C2.A0Ctrl_.2B_N" },
+        { "file-open", "man/file_menu.html#Open_.C2.A0Ctrl_.2B_O" },
+        { "file-open-recent", "man/file_menu.html#Recent_Files_.28.22Open_Recent.22_on_Mac.29" },
+        { "project-import", "man/file_menu_import.html" },
+        { "file-save", "man/file_menu_save_project.html" },
+        { "file-save-as", "man/file_menu_save_project.html" },
+        { "file-save-to-cloud", "man/file_menu.html#Cloud_use" },
+        { "action://cloud/update-audio-preview", "man/file_menu.html#Cloud_use" },
+        { "export-audio", "man/file_export_dialog.html" },
+        { "export-labels", "man/file_menu_export_other.html" },
+        { "file-share-audio", "man/file_menu.html#Cloud_use" },
+        { "file-close", "man/file_menu.html#Close_Project_.C2.A0Ctrl_.2B_W" },
+        { "quit", "man/file_menu.html#Quit_Audacity_.C2.A0Ctrl_.2B_Q" },
 
         // Edit menu (incl. Clip and Label submenus)
-        { "action://trackedit/undo", "man/edit_menu.html" },
-        { "action://trackedit/redo", "man/edit_menu.html" },
-        { "action://cut", "man/edit_menu.html" },
-        { "action://copy", "man/edit_menu.html" },
-        { "action://paste", "man/edit_menu.html" },
-        { "action://delete", "man/edit_menu.html" },
-        { "duplicate", "man/edit_menu.html" },
-        { "delete-per-track-ripple", "man/edit_menu.html" },
-        { "trim-clip", "man/edit_menu.html" },
-        { "split", "man/edit_menu.html" },
-        { "split-into-new-track", "man/edit_menu.html" },
-        { "disjoin", "man/edit_menu.html" },
-        { "join", "man/edit_menu.html" },
-        { "group-clips", "man/edit_menu.html" },
-        { "ungroup-clips", "man/edit_menu.html" },
-        { "silence-audio-selection", "man/edit_menu.html" },
-        { "open-metadata-editor", "man/edit_menu.html" },
-        { "preference-dialog", "man/edit_menu.html" },
+        { "action://trackedit/undo", "man/edit_menu.html#Undo_.C2.A0Ctrl_.2B_Z" },
+        { "action://trackedit/redo", "man/edit_menu.html#Redo_.C2.A0Ctrl_.2B_Y" },
+        { "action://cut", "man/edit_menu.html#Cut_.C2.A0Ctrl_.2B_X" },
+        { "action://copy", "man/edit_menu.html#Copy_.C2.A0Ctrl_.2B_C" },
+        { "action://paste", "man/edit_menu.html#Paste_.C2.A0Ctrl_.2B_V" },
+        { "action://delete", "man/edit_menu.html#Delete_.C2.A0Ctrl_.2B_K" },
+        { "duplicate", "man/edit_menu.html#Duplicate_.C2.A0Ctrl_.2B_D" },
+        { "delete-per-track-ripple", "man/edit_menu.html#Remove_Special" },
+        { "delete-leave-gap", "man/edit_menu.html#Remove_Special" },
+        { "delete-per-clip-ripple", "man/edit_menu.html#Remove_Special" },
+        { "delete-all-tracks-ripple", "man/edit_menu.html#Remove_Special" },
+        { "cut-per-track-ripple", "man/edit_menu.html#Remove_Special" },
+        { "cut-per-clip-ripple", "man/edit_menu.html#Remove_Special" },
+        { "cut-all-tracks-ripple", "man/edit_menu.html#Remove_Special" },
+        { "cut-leave-gap", "man/edit_menu.html#Remove_Special" },
+        { "trim-clip", "man/edit_menu.html#Audio_Clips" },
+        { "split", "man/edit_menu.html#Audio_Clips" },
+        { "split-into-new-track", "man/edit_menu.html#Audio_Clips" },
+        { "disjoin", "man/edit_menu.html#Audio_Clips" },
+        { "join", "man/edit_menu.html#Audio_Clips" },
+        { "group-clips", "man/edit_menu.html#Audio_Clips" },
+        { "ungroup-clips", "man/edit_menu.html#Audio_Clips" },
+        { "silence-audio-selection", "man/edit_menu.html#Remove_Special" },
+        { "open-metadata-editor", "man/edit_menu.html#Metadata_Editor" },
+        { "preference-dialog", "man/edit_menu.html#Preferences_.C2.A0Ctrl_.2B_P" },
         { "label-add", "man/label_tracks.html" },
         { "paste-new-label", "man/label_tracks.html" },
         { "open-label-editor", "man/label_tracks.html" },
 
         // Select menu (incl. Region and Looping submenus)
-        { "select-all", "man/select_menu.html" },
-        { "clear-selection", "man/select_menu.html" },
-        { "select-all-tracks", "man/select_menu.html" },
-        { "select-left-of-playback-position", "man/select_menu.html" },
-        { "select-right-of-playback-position", "man/select_menu.html" },
-        { "select-track-start-to-cursor", "man/select_menu.html" },
-        { "select-cursor-to-track-end", "man/select_menu.html" },
-        { "select-track-start-to-end", "man/select_menu.html" },
-        { "select-previous-clip-boundary-to-cursor", "man/select_menu.html" },
-        { "select-cursor-to-next-clip-boundary", "man/select_menu.html" },
-        { "select-previous-clip", "man/select_menu.html" },
-        { "select-next-clip", "man/select_menu.html" },
+        { "select-all", "man/select_menu.html#All_.C2.A0Ctrl_.2B_A" },
+        { "clear-selection", "man/select_menu.html#None_.C2.A0Ctrl_.2B_Shift_.2B_A_.C2.A0_Extra" },
+        { "select-all-tracks", "man/select_menu.html#Tracks" },
+        { "select-left-of-playback-position", "man/select_menu.html#Region" },
+        { "select-right-of-playback-position", "man/select_menu.html#Region" },
+        { "select-track-start-to-cursor", "man/select_menu.html#Region" },
+        { "select-cursor-to-track-end", "man/select_menu.html#Region" },
+        { "select-track-start-to-end", "man/select_menu.html#Region" },
+        { "select-previous-clip-boundary-to-cursor", "man/select_menu.html#Audio_Clips" },
+        { "select-cursor-to-next-clip-boundary", "man/select_menu.html#Audio_Clips" },
+        { "select-previous-clip", "man/select_menu.html#Audio_Clips" },
+        { "select-next-clip", "man/select_menu.html#Audio_Clips" },
         { "skip-to-selection-start", "man/select_menu.html" },
         { "skip-to-selection-end", "man/select_menu.html" },
-        { "toggle-loop-region", "man/select_menu.html" },
-        { "clear-loop-region", "man/select_menu.html" },
-        { "set-loop-region-to-selection", "man/select_menu.html" },
-        { "set-loop-region-in-out", "man/select_menu.html" },
-        { "zero-cross", "man/select_menu.html" },
+        { "toggle-loop-region", "man/select_menu.html#Region" },
+        { "clear-loop-region", "man/select_menu.html#Region" },
+        { "set-loop-region-to-selection", "man/select_menu.html#Region" },
+        { "set-loop-region-in-out", "man/select_menu.html#Region" },
+        { "set-selection-to-loop", "man/select_menu.html#Region" },
+        { "zero-cross", "man/select_menu.html#At_Zero_Crossings_.C2.A0Z" },
 
         // View menu (incl. Zoom submenu)
         { "toggle-effects", "man/view_menu.html" },
-        { "toggle-history", "man/view_menu.html" },
-        { "fullscreen", "man/view_menu.html" },
-        { "toggle-clipping-in-waveform", "man/view_menu.html" },
-        { "toggle-rms-in-waveform", "man/view_menu.html" },
+        { "toggle-history", "man/view_menu.html#History" },
+        { "fullscreen", "man/view_menu.html#Enter_.2F_Exit_Full_Screen_.28Mac_only.29" },
+        { "toggle-clipping-in-waveform", "man/view_menu.html#Show_Clipping_in_Waveform" },
+        { "toggle-rms-in-waveform", "man/view_menu.html#Show_RMS_in_Waveform" },
         { "toggle-vertical-rulers", "man/view_menu.html" },
         { "dock-restore-default-layout", "man/view_menu.html" },
-        { "zoom-in", "man/view_menu.html" },
-        { "zoom-out", "man/view_menu.html" },
-        { "zoom-default", "man/view_menu.html" },
-        { "zoom-to-selection", "man/view_menu.html" },
-        { "zoom-toggle", "man/view_menu.html" },
-        { "zoom-to-fit-project", "man/view_menu.html" },
-        { "collapse-all-tracks", "man/view_menu.html" },
-        { "expand-all-tracks", "man/view_menu.html" },
+        { "zoom-in", "man/view_menu.html#Zoom" },
+        { "zoom-out", "man/view_menu.html#Zoom" },
+        { "zoom-default", "man/view_menu.html#Zoom" },
+        { "zoom-to-selection", "man/view_menu.html#Zoom" },
+        { "zoom-toggle", "man/view_menu.html#Zoom" },
+        { "zoom-to-fit-project", "man/view_menu.html#Zoom" },
+        { "collapse-all-tracks", "man/view_menu.html#Track_Size" },
+        { "expand-all-tracks", "man/view_menu.html#Track_Size" },
 
         // Record menu (no record_menu page in the manual — use the recording guide)
-        { "command://record/on-current-track", "man/recording.html" },
-        { "command://record/on-new-track", "man/recording.html" },
-        { "action://record/lead-in-recording", "man/recording.html" },
-        { "set-up-timed-recording", "man/recording.html" },
+        { "command://record/on-current-track", "man/recording.html#Recording_on_the_same_track" },
+        { "command://record/on-new-track", "man/recording.html#Recording_a_new_track" },
+        { "action://record/lead-in-recording", "man/recording.html#Continuing_recording_in_a_new_track" },
+        { "set-up-timed-recording", "man/recording.html#Recording_for_a_specific_length_of_time" },
         { "toggle-sound-activated-recording", "man/recording.html" },
         { "set-sound-activation-level", "man/recording.html" },
 
         // Tracks menu
-        { "new-mono-track", "man/tracks_menu.html" },
-        { "new-stereo-track", "man/tracks_menu.html" },
-        { "new-label-track", "man/tracks_menu.html" },
+        { "new-mono-track", "man/tracks_menu.html#Add_New_.C2.A0" },
+        { "new-stereo-track", "man/tracks_menu.html#Add_New_.C2.A0" },
+        { "new-label-track", "man/tracks_menu.html#Add_New_.C2.A0" },
         { "track-duplicate", "man/tracks_menu.html" },
-        { "align-end-to-end", "man/tracks_menu.html" },
-        { "align-together", "man/tracks_menu.html" },
-        { "align-start-to-zero", "man/tracks_menu.html" },
-        { "align-start-to-playhead", "man/tracks_menu.html" },
-        { "align-start-to-selection-end", "man/tracks_menu.html" },
-        { "align-end-to-playhead", "man/tracks_menu.html" },
-        { "align-end-to-selection-end", "man/tracks_menu.html" },
+        { "align-end-to-end", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-together", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-start-to-zero", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-start-to-playhead", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-start-to-selection-end", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-end-to-playhead", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
+        { "align-end-to-selection-end", "man/tracks_menu.html#Align_Tracks_.C2.A0" },
 
         // Effect menu
-        { "add-realtime-effects", "man/effect_menu.html" },
-        { "repeat-last-effect", "man/effect_menu.html" },
+        { "add-realtime-effects", "man/effect_menu.html#Add_Realtime_Effects" },
+        { "repeat-last-effect", "man/effect_menu.html#Repeat_Last_Effect_.C2.A0Ctrl_.2BR" },
 
         // Analyze menu
-        { "contrast-analyzer", "man/analyze_menu.html" },
-        { "plot-spectrum", "man/analyze_menu.html" },
+        { "contrast-analyzer", "man/analyze_menu.html#Contrast_.C2.A0Ctrl_.2B_Shift_.2B_T_.C2.A0_Extra" },
+        { "plot-spectrum", "man/analyze_menu.html#Plot_Spectrum" },
 
         // Tools menu
         { "plugin-manager", "man/manage_effects_generators_and_analyzers.html" },
-        { "manage-macros", "man/tools_menu.html" },
-        { "raw-data-import", "man/tools_menu.html" },
-        { "reset-configuration", "man/tools_menu.html" },
+        { "manage-macros", "man/tools_menu.html#Macro_Manager_.C2.A0" },
+        { "raw-data-import", "man/tools_menu.html#Sample_Data_Import" },
+        { "reset-configuration", "man/tools_menu.html#Reset_Configuration" },
 
         // Extra menu
-        { "prev-window", "man/extra_menu.html" },
-        { "next-window", "man/extra_menu.html" },
-        { "benchmark", "man/extra_menu.html" },
-        { "regular-interval-labels", "man/extra_menu.html" },
+        { "prev-window", "man/window_menu.html" },
+        { "next-window", "man/window_menu.html" },
+        { "benchmark", "man/tools_menu.html#Run_Benchmark_.C2.A0" },
+        { "regular-interval-labels", "man/tools_menu.html#Regular_Interval_Labels" },
         { "sort-by-time", "man/extra_menu.html" },
 
         // Help menu
         { "tutorials", "man/help_menu.html" },
-        { "context-help", "man/help_menu.html" },
-        { "online-handbook", "man/help_menu.html" },
-        { "shortcuts-preferences", "man/help_menu.html" },
-        { "link-account", "man/help_menu.html" },
-        { "about-audacity", "man/help_menu.html" },
-        { "about-qt", "man/help_menu.html" },
+        { "context-help", "man/help_menu.html#Quick_Help_.C2.A0" },
+        { "online-handbook", "man/help_menu.html#Manual" },
+        { "shortcuts-preferences", "man/keyboard_preferences.html" },
+        { "link-account", "man/help_menu.html#Link_audio.com_account_.C2.A0" },
+        { "about-audacity", "man/help_menu.html#About_Audacity_.C2.A0" },
+        { "about-qt", "man/help_menu.html#About_Audacity_.C2.A0" },
         { "revert-factory", "man/help_menu.html" },
-        { "check-update", "man/help_menu.html" },
+        { "check-update", "man/help_menu.html#Check_for_Updates_.C2.A0" },
+
+        // Timeline and track-panel context menus
+        { "audio-settings", "man/preferences.html" },
+        { "rescan-devices", "man/preferences.html" },
+        { "beats-measures-ruler", "man/timeline.html" },
+        { "minutes-seconds-ruler", "man/timeline.html" },
+        { "toggle-pinned-play-head", "man/transport_menu.html" },
+        { "toggle-playback-on-ruler-click-enabled", "man/transport_menu.html" },
+        { "toggle-selection-follows-loop-region", "man/select_menu.html#Region" },
+        { "toggle-update-display-while-playing", "man/transport_menu.html" },
+        { "realtimeeffect-remove", "man/index_of_effects_generators_and_analyzers.html" },
     };
 
+    //! NOTE Prefix rules for parameterized or dynamically-generated action codes
+    //!      (menu item ids end in the numeric index suffix, which strips cleanly,
+    //!      but parameter values can also end in digits — prefixes are safer).
+    static const std::vector<std::pair<std::string, std::string> > ACTION_PREFIX_TO_HANDBOOK_PAGE {
+        { "action://trackedit/cut", "man/edit_menu.html#Cut_.C2.A0Ctrl_.2B_X" },
+        { "action://trackedit/copy", "man/edit_menu.html#Copy_.C2.A0Ctrl_.2B_C" },
+        { "action://trackedit/paste", "man/edit_menu.html#Paste_.C2.A0Ctrl_.2B_V" },
+        { "action://trackedit/delete", "man/edit_menu.html#Remove_Special" },
+        { "action://trackedit/clip/", "man/audio_tracks.html" },
+        { "action://trackedit/track/", "man/audio_tracks.html" },
+        { "action://projectscene/track-view", "man/audio_tracks.html" },
+        { "action://effects/", "man/index_of_effects_generators_and_analyzers.html" },
+    };
+
+    //! NOTE The active control covers highlighted menu items (popups use
+    //! Exclusive sections) and keyboard-focused toolbar/page controls alike —
+    //! either is a valid context for F1. Names that are not action codes
+    //! simply miss the map and fall through to the URI map.
     const muse::ui::INavigationControl* activeControl = navigationController()->activeControl();
-    if (activeControl && activeControl->panel() && activeControl->panel()->section()
-        && activeControl->panel()->section()->type() == muse::ui::INavigationSection::Type::Exclusive) {
+    if (activeControl) {
         std::string actionId = activeControl->name().toStdString();
         while (!actionId.empty() && actionId.back() >= '0' && actionId.back() <= '9') {
             actionId.pop_back();
@@ -552,10 +588,10 @@ std::string ApplicationActionController::handbookPageForCurrentUri() const
             }
         }
 
-        //! NOTE Plugin menu items (Generate/Effect/Analyze/Tools) carry dynamic
-        //! action://effects/* codes — the index page covers all of them.
-        if (actionId.find("action://effects/") == 0) {
-            return "man/index_of_effects_generators_and_analyzers.html";
+        for (const auto& entry : ACTION_PREFIX_TO_HANDBOOK_PAGE) {
+            if (actionId.find(entry.first) == 0) {
+                return entry.second;
+            }
         }
     }
 
