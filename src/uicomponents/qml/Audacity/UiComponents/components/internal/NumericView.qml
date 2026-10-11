@@ -56,7 +56,7 @@ RowLayout {
     signal valueChangeRequested(var newValue)
     signal valueEditingFinished
 
-    height: 28
+    implicitHeight: 28
 
     spacing: root.arrowSpacing
 
