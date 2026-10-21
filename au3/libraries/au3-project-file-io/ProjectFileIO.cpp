@@ -1779,7 +1779,9 @@ bool ProjectFileIO::HandleXMLTag(const std::string_view& tag, const AttributesLi
     int fver;
     int frel;
     int frev;
-    if (!wxSscanf(fileVersion, wxT("%i.%i.%i"), &fver, &frel, &frev)) {
+    // issue #27 — wxSscanf returns the count of fields converted; a
+    // partial match (e.g. "3.0") left frev uninitialized.
+    if (wxSscanf(fileVersion, wxT("%i.%i.%i"), &fver, &frel, &frev) != 3) {
         return false;
     }
 
