@@ -72,7 +72,8 @@ intptr_t VSTWrapper::AudioMaster(AEffect* effect,
         return (intptr_t)2400;
 
     case audioMasterCurrentId:
-        return vst->mCurrentEffectID;
+        // issue #27 — vst can be null before an effect is bound.
+        return vst ? vst->mCurrentEffectID : 0;
 
     case audioMasterGetVendorString:
         strcpy((char*)ptr, "Audacity Team");       // Do not translate, max 64 + 1 for null terminator
@@ -845,11 +846,15 @@ bool VSTWrapper::LoadFXB(const wxFileName& fn)
                 break;
             }
 
-            // Get the chunk size
+            // Get the chunk size — issue #27: a negative or overflowing
+            // size slipped the bounds check and walked bptr backward.
             int size = wxINT32_SWAP_ON_LE(iptr[39]);
+            if (size < 0) {
+                break;
+            }
 
             // We finally know the full length of the program
-            int proglen = 160 + size;
+            long long proglen = 160 + (long long)size;
 
             // Verify that we have enough for the entire program
             if (len < proglen) {
@@ -972,13 +977,18 @@ bool VSTWrapper::LoadFXProgram(unsigned char** bptr, ssize_t& len, int index, bo
         return false;
     }
 
-    // Get the program name
-    wxString progName(wxString::From8BitData((char*)&iptr[7]));
+    // Get the program name — issue #27: bound the read to the fixed
+    // 28-byte FXP name field (was an unbounded NUL scan).
+    wxString progName(wxString::From8BitData((char*)&iptr[7], 28));
 
     // Might be a regular program
     if (wxINT32_SWAP_ON_LE(iptr[2]) == CCONST('F', 'x', 'C', 'k')) {
-        // We finally know the full length of the program
-        int proglen = 56 + (numParams * sizeof(float));
+        if (numParams < 0) {
+            return false;
+        }
+        // We finally know the full length of the program — wide math so
+        // a huge crafted numParams cannot overflow the bounds check.
+        long long proglen = 56 + ((long long)numParams * (long long)sizeof(float));
 
         // Verify that we have enough for all of the parameter values
         if (len < proglen) {
@@ -1026,11 +1036,15 @@ bool VSTWrapper::LoadFXProgram(unsigned char** bptr, ssize_t& len, int index, bo
             return false;
         }
 
-        // Get the chunk size
+        // Get the chunk size — issue #27: reject negative/overflowing
+        // crafted sizes before the bounds check.
         int size = wxINT32_SWAP_ON_LE(iptr[14]);
+        if (size < 0) {
+            return false;
+        }
 
         // We finally know the full length of the program
-        int proglen = 60 + size;
+        long long proglen = 60 + (long long)size;
 
         // Verify that we have enough for the entire program
         if (len < proglen) {
@@ -1660,6 +1674,9 @@ VSTWrapper::MakeMessageFS(const VSTSettings& settings) const
     (
         [&](const VSTWrapper::ParameterInfo& pi)
     {
+        if (pi.mID >= paramVector.size()) {
+            return true;  // issue #27 — out-of-range slot index
+        }
         auto& slot = paramVector[pi.mID];  // operator [] may make a nullopt
         const auto iter = settings.mParamsMap.find(pi.mName),
         end = settings.mParamsMap.end();

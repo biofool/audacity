@@ -54,12 +54,30 @@ std::vector<std::string> ListAttachedDatabases()
 
     return attachedDBs;
 }
+
+// ProjectInfo.Id is server-controlled JSON and lands in SQL identifiers
+// ("s_" + Id attached-name, "o_" + Id, INSERT INTO/DELETE FROM targets).
+// Same whitelist as the SAVEPOINT guard in sqlite::Connection (issue #27):
+// keep [A-Za-z0-9_], flatten everything else so a crafted Id cannot
+// inject identifier or statement syntax.
+std::string SanitizedSqlName(const std::string& id)
+{
+    std::string out;
+    out.reserve(id.size());
+    for (char c : id) {
+        out += ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                || (c >= '0' && c <= '9') || c == '_')
+            ? c : '_';
+    }
+    return out;
+}
+}
 } // namespace
 
 RemoteProjectSnapshot::RemoteProjectSnapshot(
     Tag, ProjectInfo projectInfo, SnapshotInfo snapshotInfo, std::string path,
     RemoteProjectSnapshotStateCallback callback, bool downloadDetached)
-    : mSnapshotDBName{std::string("s_") + projectInfo.Id}
+    : mSnapshotDBName{std::string("s_") + SanitizedSqlName(projectInfo.Id)}
     , mProjectInfo{std::move(projectInfo)}
     , mSnapshotInfo{std::move(snapshotInfo)}
     , mPath{std::move(path)}
@@ -221,7 +239,7 @@ std::string_view RemoteProjectSnapshot::GetProjectId() const
 
 std::string RemoteProjectSnapshot::AttachOriginalDB()
 {
-    const std::string dbName = "o_" + mProjectInfo.Id;
+    const std::string dbName = "o_" + SanitizedSqlName(mProjectInfo.Id);
 
     const auto projectData
         =CloudProjectsDatabase::Get().GetProjectData(mProjectInfo.Id);

@@ -220,6 +220,19 @@ Error Connection::TransactionHandler(
 
     const auto& name = transaction.mName;
 
+    // The name is concatenated into SAVEPOINT/RELEASE statements passed to
+    // sqlite3_exec, which runs every statement — a ';'-bearing name from
+    // server-controlled data (e.g. audio.com ProjectInfo.Id, issue #27)
+    // would be multi-statement SQL injection. SQLite savepoint names follow
+    // ordinary identifier rules; reject anything outside [A-Za-z0-9_].
+    const auto validName = std::all_of(name.begin(), name.end(), [](char c) {
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+               || (c >= '0' && c <= '9') || c == '_';
+    });
+    if (name.empty() || !validName || (name[0] >= '0' && name[0] <= '9')) {
+        return Error(SQLITE_MISUSE);
+    }
+
     switch (operation) {
     case Transaction::TransactionOperation::BeginOp:
         sql = std::string("SAVEPOINT ") + name;
@@ -310,10 +323,9 @@ Connection::operator bool() const noexcept
 Error Connection::Close(bool force) noexcept
 {
     // If there is a transaction in progress,
-    // rollback it.
-    std::vector<Transaction*> pendingTransactions;
-
-    for (auto* transaction : pendingTransactions) {
+    // rollback it. (issue #27 — this iterated a fresh empty vector, so
+    // pending transactions were never aborted on close.)
+    for (auto* transaction : mPendingTransactions) {
         if (auto err = transaction->Abort(); !force && err.IsError()) {
             return err;
         }

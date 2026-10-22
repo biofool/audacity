@@ -732,6 +732,15 @@ void SqliteSampleBlock::Load(SampleBlockID sbid)
     mSumMax = sqlite3_column_double(stmt, 2);
     mSumRms = sqlite3_column_double(stmt, 3);
     mSampleBytes = sqlite3_column_int(stmt, 4);
+    // A crafted project file can store a sampleformat the enum never
+    // defined — SAMPLE_SIZE(x) is x>>16, so any value <= 0xFFFF divides by
+    // zero (SIGFPE on project open, issue #27). Fail the load instead.
+    if (mSampleFormat != int16Sample && mSampleFormat != int24Sample
+        && mSampleFormat != floatSample) {
+        sqlite3_clear_bindings(stmt);
+        sqlite3_reset(stmt);
+        Conn()->ThrowException(false);
+    }
     mSampleCount = mSampleBytes / SAMPLE_SIZE(mSampleFormat);
 
     // Clear statement bindings and rewind statement
