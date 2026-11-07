@@ -22,18 +22,27 @@ jobs:
           submodules: true
 
       - name: Update info about the get started playlist in s3
+        env:
+          MODE: ${{ inputs.mode }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          S3_KEY: ${{ secrets.S3_KEY }}
+          S3_SECRET: ${{ secrets.S3_SECRET }}
         run: |
+          case "$MODE" in
+            stable|testing) ;;
+            *) echo "::error::Invalid playlist mode"; exit 1 ;;
+          esac
           S3_URL="s3://extensions.musescore.org/audacity/4.0/learn/started_playlist.json"
-          if [ ${{ github.event.inputs.mode }} == "testing" ]; then
+          if [ "$MODE" == "testing" ]; then
             S3_URL="s3://extensions.musescore.org/audacity/4.0/learn/started_playlist.test.json"
           fi
 
           sudo bash ./muse/buildscripts/ci/learn/make_playlists_info_file.sh \
-            --youtube_api_key ${{ secrets.YOUTUBE_API_KEY }} \
+            --youtube_api_key "$YOUTUBE_API_KEY" \
             --youtube_playlist_id 'PLt__f9D3T90yZiTOE1QOAF2Uc1MPAK_fv'
 
           sudo bash ./muse/buildscripts/ci/tools/s3_push_file.sh \
-            --s3_key ${{ secrets.S3_KEY }} \
-            --s3_secret ${{ secrets.S3_SECRET }} \
-            --s3_url ${S3_URL} \
+            --s3_key "$S3_KEY" \
+            --s3_secret "$S3_SECRET" \
+            --s3_url "$S3_URL" \
             --file_path "build.artifacts/playlist.json"
